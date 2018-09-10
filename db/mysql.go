@@ -10,7 +10,7 @@ import (
 var MySQLDB *sql.DB
 
 func init() {
-	db, err := sql.Open("mysql", "root:calvin.1.@tcp(39.108.104.253:3306)/5iweb?charset=utf8")
+	db, err := sql.Open("mysql", "root:xxxxxx@tcp(39.108.104.253:3306)/5iweb?charset=utf8")
 	MySQLDB = db
 	checkErr(err)
 }
