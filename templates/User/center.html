@@ -1,0 +1,92 @@
+<div class="container projects">
+  <main class="col-md-12 main-content bre">
+  <div class="info-box-flex">
+    <if condition="strlen($res[t_headimg]) lt 100">
+    <img class="headimg" src="{$res.t_headimg|substr=###,1}">
+    <else />
+    <img class="headimg" src="{$res.t_headimg}">
+    </if>
+  <div class="info-box">
+    <h1  class="username">{$res.username}</h1>
+	<div>{$res.position}</div>
+	<div>{$res.selfintroduction}</div>
+	<div>{$res.company}</div>
+	
+  </div>
+  <div class="action-box ">
+	<button  onclick="javascript:location.href='{:U('User/setting')}';">编辑个人信息</button>
+  </div>
+  </div>
+  <div  class="header-list" style="display:none;">
+	<a href="{:U('User/center',array('user'=>$_SESSION[author]))}" class="link active">动态</a>
+	<a href="?tag=主题" class="link" >主题</a>
+	<a href="?tag=文章" class="link" >文章</a>
+	<a href="?tag=分享" class="link" >分享</a>
+	<a href="?tag=标签" class="link" >标签</a>
+	<a href="?tag=default" class="link">default</a>
+	<a href="?tag=default1" class="link" >default1</a>
+  </div>
+  <div class="history-box-flex">
+	<ul>
+	<foreach name="res4tag" item="v">
+	  <li>
+	  <div class="flex-box"> 
+		<a  target="_black" href= "{:U('Index/note',array('id'=>$v[goods_id]))}" class="history-box">
+			<div class="history-box-top">
+				<div class="meta-box">关注了标签</div>
+				<div class="margin-left-auto meta-box">{$v.add_time|date="y-m-d",###}</div>
+			</div>
+			<div class="history-box-bottom">
+			  <div class="bottom-box-full">{$v.goods_name}</div>
+			</div>
+		</a>
+	  </div>
+	  </li>
+    </foreach>
+	  
+	
+	</ul>
+  
+  </div>
+  </main>
+  <!-- <aside class="col-md-4 sidebar visible-lg-block welcome__side"></aside> -->
+</div>
+<script>
+$(function(){
+	(function ($) {
+		$.getUrlParam = function (name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+			var r = window.location.search.substr(1).match(reg);
+			<!-- if (r != null) return unescape(r[2]); return null; -->
+			if (r != null) return decodeURI(r[2]); return null;
+		}
+	})(jQuery);
+	
+	$('.link').click(function(){
+		$('.link').removeClass('active')
+		$(this).addClass('active')
+	
+	})
+	
+	 
+	var sortValue = $.getUrlParam('tag');
+	
+	console.log(sortValue)
+	$(".link").each(function(){
+		console.log($(this).index())
+		if($(this).text()==sortValue){
+		$('.link').removeClass('active')
+		$(this).addClass('active')
+		}
+		
+	})
+	$('.flex-box').hover(function(){
+		$(this).css({'background':'#f6f6f6'});
+	
+	},function(){
+	
+		$(this).css({'background':'#fff'})
+	})
+})
+
+</script>

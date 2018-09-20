@@ -18,8 +18,16 @@ var RouterMaps = []*RouterMap{
 		Fn:   controllers.ArticleItem,
 	},
 	{
-		Path: "/view/",
-		Fn:   controllers.ArticleItem,
+		Path: "/login/",
+		Fn:   controllers.Login,
+	},
+	{
+		Path: "/test/",
+		Fn:   controllers.Test,
+	},
+	{
+		Path: "/login1/",
+		Fn:   controllers.Login1,
 	},
 }
 

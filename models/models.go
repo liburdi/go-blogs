@@ -59,7 +59,7 @@ func (p *ModelProperty) Query(s SelectValues, where WhereValues, offset int64, l
 	var whereString = where.MergeWhere()
 
 	sql := fmt.Sprintf("SELECT %s FROM %s WHERE %s LIMIT %d, %d",
-		selectString, tableName, whereString, offset, limit)
+		selectString, p.TableName, whereString, offset, limit)
 
 	rows, err := Conn.Query(sql)
 

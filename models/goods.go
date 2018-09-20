@@ -1,7 +1,5 @@
 package models
 
-var tableName = "php41_goods"
-
 // BlogModel 模型
 type GoodsModel struct {
 	ModelProperty
