@@ -48,7 +48,7 @@ func init() {
 	Conn = Pool.Get()
 }
 func Set(key, vaule string) interface{} {
-	defer Conn.Close()
+	//	defer Conn.Close()
 	//redis操作
 	v, err := Conn.Do("SET", key, vaule)
 	if err != nil {

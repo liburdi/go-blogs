@@ -107,7 +107,7 @@ document.write('<script src="' + src + '" id="sozz"><\/script>');
 			
 			<li   class=" navbar-brand nav-item auth visible-xs-block" onclick="javascript:location.href='{:U('Index/login')}';"><span  class="login">登录</span>·<span  class="register">注册</span></li>
 			{{else}}
-			<li   class=" navbar-brand nav-item auth visible-xs-block" >{{.SessionUser}}</li>
+			<li   class=" navbar-brand nav-item auth visible-xs-block" >{{range $key, $val :=.SessionUser}} {{$val}} 11{{ end }}</li>
 			{{end}}
 		</div>
 		<script>
@@ -147,7 +147,7 @@ document.write('<script src="' + src + '" id="sozz"><\/script>');
 				</if>
 				<if condition="$_SESSION[author]">
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle link-active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{.SessionUser}}<span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle link-active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{range $key,$val:=.SessionUser}} {{range $k,$v:=$val}} {{$v}} {{end}} {{end}}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li ><a href="{:U('User/center',array('user'=>$_SESSION[userid]))}">个人主页</a></li>
 						<li ><a href="{:U('User/setting')}">资料设置</a></li>
