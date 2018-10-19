@@ -1,0 +1,36 @@
+<div class="container projects">
+    <div >
+      <div class="pagination hidden-xs">{$list}</div>
+    </div>
+    <div class="row">
+	<foreach name="new" item="v">
+      <div class="col-sm-12 col-md-6 col-lg-6 ">
+        <div class="thumbnail" style="height: 100px;display:flex;">
+	<if condition="$v['cat_id'] eq 1">
+       	   <a     href="{:U('note',array('id'=>$v['goods_id']))}" title="" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'codeguide'])">
+	<elseif condition="$v['cat_id'] eq 2" />
+	   <a   href="{:U('src',array('id'=>$v['goods_id']))}" title="" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'codeguide'])">
+	<else />
+	</if>
+            <img class="lazy" src="{$Think.config.LOCALHOST_URL}{$v.t_headimg|substr=1}" style="min-width:90px; min-height:90px;" data-original="{$Think.config.LOCALHOST_URL}{$v.t_headimg|substr=2}" >
+          </a>
+          <div class="caption"  style="flex:1 1 auto;" >
+            <h5>
+               <if condition="$v['cat_id'] eq 1">
+                  <a href="{:U('note',array('id'=>$v['goods_id']))}" title="{$v.goods_name}" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'codeguide'])">{$v.goods_name}<br><small>by @{$v.author}</small></a>
+	       <elseif condition="$v['cat_id'] eq 2"/>
+                  <a href="{:U('src',array('id'=>$v['goods_id']))}"  title="{$v.goods_name}" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'codeguide'])">{$v.goods_name}<br><small>by @{$v.author}</small></a>
+               <else />
+	       </if>
+            </h5>
+            <p>{$v.description}</p>
+          </div>
+        </div>
+      </div>
+	  </foreach>
+    </div>
+  <div class="pagination visible-xs-block">{$listm}</div>
+</div>
+<style>
+body{background-color:#ffffff;}
+</style>

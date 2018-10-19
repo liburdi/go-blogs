@@ -1,0 +1,167 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Window-target" content="_top">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ --><title>{$break.pagetitle}</title>
+<meta name="keywords" content="{$break.keywords}">
+<meta name="description" content="{$break.description}">
+
+<meta name="sogou_site_verification" content="0EqcZL1hej"/>
+<meta name="360-site-verification" content="0b515d5dacc31ffcf11d7b0089811a7e" />
+<meta name="shenma-site-verification" content="f7a79f368c108c25b698af27420f5d21_1531988811"> 
+
+
+
+<!-- Bootstrap -->
+<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --><!-- WARNING: Respond.js doesn't work if you view the page via file:// --><!-- [if lt IE 9]>
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link rel="icon" href="/static/img/favicon.ico"/>
+<link rel="stylesheet" href="/static/css/site.css"/>
+<link rel="stylesheet" href="/static/css/entry.css"/>
+<link rel="stylesheet" href="/static/css/welcome.css"/>
+<link rel='stylesheet' type='text/css' href='{$Think.config.CSS_URL}jquery.gif.css'/>
+<script src="/static/javascript/sitefunction.js"></script>
+<script src="/static/javascript/phoneCode.js"></script>
+<script src="/static/plugin/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+<link rel="stylesheet" href="/static/plugin/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
+<script type="text/javascript">
+	   SyntaxHighlighter.all();
+	  </script>
+<script>
+		var _hmt = _hmt || [];
+	  </script>
+<script src="/static/javascript/jquery-2.2.2.min.js"></script>
+<script src="/static/javascript/jquery.lazyload.min.js" type="text/javascript"></script>
+<script src="/static/javascript/jquery.gif.min.js"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+	$('.gif').each(function() {
+	  $(this).gif();
+	});
+	Tabs(".list-item", ".contents", "list-item-checked", "contents-checked");
+	Tabs_img(".list-item-img", ".contents-img", "list-item-img-checked", "contents-img-checked");
+});
+</script>
+<!--360收录-->
+<script>(function(){
+var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?7124abb302441289fa561bbc1e887381":"https://jspassport.ssl.qhimg.com/11.0.1.js?7124abb302441289fa561bbc1e887381";
+document.write('<script src="' + src + '" id="sozz"><\/script>');
+})();
+</script>
+<script>
+//百度收录
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script type="text/javascript" charset="utf-8">
+		  $(function() {
+			  $("img").lazyload({ 
+			  placeholder : "/static/images/loading.gif",
+					 effect: "fadeIn"
+			   }); 
+			var swidth =  $('#search').width();
+			$('#search').focus(function(){
+			})
+			$('#search').blur(function(){
+			})
+		  });
+	</script>
+</head>
+<body>
+<div class="navbar navbar-default bc4c ">
+	<div class="container">
+		<div class="navbar-header">
+			<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand hidden-sm" href="/" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'navbar-首页'])">
+			<!-- <span class="gnicon-home"></span> -->
+			<!-- <div class="gheader-logo"> -->
+			<!-- </div> -->
+			Golang开发者社区
+			</a>
+			{{if not .SessionUser}} 
+			
+			<li   class=" navbar-brand nav-item auth visible-xs-block" onclick="javascript:location.href='{:U('Index/login')}';"><span  class="login">登录</span>·<span  class="register">注册</span></li>
+			{{else}}
+			<li   class=" navbar-brand nav-item auth visible-xs-block" >{{range $key, $val :=.SessionUser}} {{$val}} 11{{ end }}</li>
+			{{end}}
+		</div>
+		<script>
+		function toLogin(){
+			location.href="{:U('Index/login')}"
+		}
+		</script>
+		<div class="navbar-collapse collapse" role="navigation" aria-expanded="false" style="height: 1px;">
+			<ul class="nav navbar-nav">
+				
+				<li><a href="{:U('Index/index')}"  onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v3doc'])">主题</a></li>
+				<li onclick="loadStatus('文章')"><a href="{:U('Index/article')}"  onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v4doc'])">文章</a></li>
+				<!-- <li><a href="{:U('Index/bored')}"  onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'less'])">无聊图</a></li> -->
+				<!-- <li><a href="{:U('Index/girl')}"  onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'less'])">妹子</a></li> -->
+				<!-- <li><a href="{:U('Index/joke')}"  onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'less'])">段子</a></li> -->
+				<li class="hidden-xs" style="height:50px;width:300px;">
+				<form action="http://www.so.com/s" target="_blank" id="so360form">
+					<input type="text" autocomplete="off" name="q" id="search" class="form-control">
+					<div id="search-btn">
+						<span class="glyphicon glyphicon-search btn-lg">
+						</span>
+					</div>
+					<input type="hidden" name="ie" value="utf8">
+					<input type="hidden" name="src" value="zz_www.v2fun.cn">
+					<input type="hidden" name="site" value="www.v2fun.cn">
+					<input type="hidden" name="rg" value="1">
+				</form>
+				<script type="text/javascript" charset="utf-8">
+			  $('#search-btn').click(function(){
+					$('#so360form').submit(); 
+			  });
+		  </script>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right hidden-sm">
+				<if condition="empty($_SESSION[author])">
+				</if>
+				<if condition="$_SESSION[author]">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle link-active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{range $key,$val:=.SessionUser}} {{range $k,$v:=$val}} {{$v}} {{end}} {{end}}<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li ><a href="{:U('User/center',array('user'=>$_SESSION[userid]))}">个人主页</a></li>
+						<li ><a href="{:U('User/setting')}">资料设置</a></li>
+						<li ><a href="{:U('Subscribe/all')}">我的标签</a></li>
+						<li ><a href="{:U('Index/login',array('logout'=>1))}">退出登录</a></li>
+					
+					</ul>
+				</li>
+				<else />
+				<li><a href="{:U('Index/login')}" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'about'])" class="link-active">登录/注册</a></li>
+				</if>
+				
+			</ul>
+		</div>
+	</div>
+</div>
+{{end}}

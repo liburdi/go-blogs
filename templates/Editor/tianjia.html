@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+ <head> 
+  <title>写文章-你好-v2fun</title> 
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
+  <link href="{$Think.config.BACK_CSS_URL}mine.css" type="text/css" rel="stylesheet" /> 
+  <link href="{$Think.config.BACK_CSS_URL}admin.css" type="text/css" rel="stylesheet" /> 
+  <link rel="stylesheet" href="{$Think.config.CSS_URL}texteditor.css"/>
+  <script type="text/javascript" charset="utf-8" src="{$Think.config.PLUGIN_URL}ueditor/ueditor.config.js"></script> 
+  <script type="text/javascript" src="{$Think.config.PLUGIN_URL}ueditor/third-party/SyntaxHighlighter/shCore.js"></script> 
+  <link rel="stylesheet" type="text/css" href="{$Think.config.PLUGIN_URL}ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" /> 
+  <script>SyntaxHighlighter.all();</script> 
+  <link href="{$Think.config.BACK_BOOTSTRAP_URL}/css/bootstrap.min.css" type="text/css" rel="stylesheet" /> 
+  <link rel="icon" href="{$Think.config.IMG_URL}favicon.ico"/>
+  <script type="text/javascript">
+            UEDITOR_CONFIG.toolbars = [[
+            'bold', 'italic', 'underline', 'removeformat', 'blockquote', '|', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+            'rowspacingtop', 'rowspacingbottom', 'lineheight', '|','fontfamily', 'fontsize','|', 'insertimage', 'emotion', 'insertcode','SyntaxHighlighter',
+
+            ]];    
+            
+            </script> 
+  <script type="text/javascript" charset="utf-8" src="{$Think.config.PLUGIN_URL}ueditor/ueditor.all.min.js"></script> 
+  <script type="text/javascript" charset="utf-8" src="{$Think.config.PLUGIN_URL}ueditor/lang/zh-cn/zh-cn.js"></script> 
+  <script type="text/javascript" src="{$Think.config.COMMON_URL}Js/jquery-2.2.2.min.js"></script> 
+  <script type="text/javascript" src="{$Think.config.COMMON_URL}Js/uploadPreview.js"></script> 
+ </head> 
+ <body> 
+
+ <div id='tips' class="alert alert-warning alert-dismissible" role="alert" style='position:fixed;top:90px;left:42%;display:none;z-index:999;'>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Warning!</strong> 文章发布失败！
+ </div>
+
+  <script type="text/javascript">
+        //加载事件里边定义click事件
+        $(function(){
+			$('span.title').click(function(){
+				$('.panel').toggle();
+				$('#edui1').css({'z-index':0})
+			
+			})
+			$('button.publish-btn').click(function(){
+				$('.panel').hide();
+				var goods_name=$('#title').val();
+				var goods_introduce=UE.getEditor('goods_introduce').getContent();
+				var author="{$Think.session.author}";
+				var yauthor=$("input[name='yauthor']").val();
+				var yurl=$("input[name='yurl']").val();
+				$.ajax({  
+					type : "POST",  //提交方式  
+					url : "{:U('tianjia')}",//路径  
+					data :{'goods_name':goods_name,'goods_introduce':goods_introduce,'author':author,'yauthor':yauthor,'yurl':yurl},//数据，这里使用的是Json格式进行传输  
+					success : function(result){
+						if(result.status=='success'){
+							location.href="/"
+						}else{
+							$('#tips strong').html(result.errMsg);
+							$('#tips').show();
+						}
+					}  
+				});  
+			});
+			$('.close span').click(function(){
+			console.log(1)
+				$('#tips').hide();
+			});
+        });
+        </script> 
+ <div class="v2fun-web-editor">
+ <div  class="rich-text-editor">
+	<header class="header rich-text-editor-header">
+	  <div class="header-content">
+	    <div class="logo logo"></div>
+		
+		<div  class="publish-popup publish-popup with-padding" status="editing">
+		   <div  class="toggle-btn">
+			<span  class="title ">
+			发布
+			<i  class="glyphicon glyphicon-triangle-bottom"></i>
+			</span>
+		   </div>
+		   <div  class="panel" style="display: none;">
+			<div  class="title">
+			 发布文章
+			</div>
+			
+			<div  class="tag-box">
+			 <div  class="sub-title">
+			  来源
+			 </div>
+			 <div  class="category-list"></div>
+			 <div   class="tag-input tag-input">
+			  <input  name="yurl" type="text" placeholder="（可选填）" class="input" />
+			 
+			 </div>
+			</div>
+			<div  class="tag-box">
+			 <div  class="sub-title">
+			  原作者
+			 </div>
+			 <div  class="category-list"></div>
+			 <div   class="tag-input tag-input">
+			  <input  name="yauthor" type="text" placeholder="（可选填）" class="input" />
+			  
+			 </div>
+			</div>
+			<button class="publish-btn">确定并发布</button>
+			
+		   </div>
+		   
+		</div> 
+	  </div>
+	</header>
+  <div  class="main">
+   <textarea   placeholder="输入标题..." id="title" spellcheck="false" maxlength="80" rows="1" class="title-input title-input"></textarea>
+   <textarea  name="goods_introduce" id="goods_introduce" style="max-width: 80%;padding-right:0px;overflow: hidden;" class="rich-text-editor-content medium-editor-element medium-editor-placeholder" contenteditable="true" spellcheck="false" data-medium-editor-element="true" role="textbox" aria-multiline="true" data-medium-editor-editor-index="1" medium-editor-index="5dfca6ea-5cb0-2cdf-c6d9-61df629815f9" data-placeholder="输入正文..."></textarea>
+   
+  </div>
+  <script type="text/javascript">
+                    var ue = UE.getEditor('goods_introduce');
+  </script> 
+ </div>
+ </div>  
+ </body>
+</html>

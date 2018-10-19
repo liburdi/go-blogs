@@ -1,0 +1,291 @@
+html,body,#app{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+a{
+	color: black;
+	text-decoration: none;
+}
+#app>div{
+	height:100%;
+}
+#GetPhone{
+	background: #f4f4f4;
+	overflow: hidden;
+	position: relative;
+	font-size: 0.25rem;
+}
+#GetPhone canvas,.img_content{
+	position: absolute;
+	left: 50%;
+	top:45%;
+    overflow: hidden;
+	transform: translate(-50%,-50%);
+    border: 2px solid #f4f4f4;
+}
+.img_content img{
+	width: 100%;
+}
+#controlTop{
+	background: #f4f4f4;
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+}
+#controlBottom{
+    text-align: center;
+    background: #f4f4f4;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 20%;
+    z-index: 1000;
+}
+.liucheng {
+    color: gray;
+    margin-left: 10px;
+}
+.liucheng h4{
+    font-weight: 100;
+	float: left;
+}
+.liucheng span{
+    padding:0 5px;
+}
+#reload {
+    width: 12%;
+    top: 10px;
+    position: fixed;
+    right: 10px;
+}
+#prePrice{
+    font-size: 0.25rem;
+    margin: 10px auto 5px;
+    color: red;
+}
+#preBox{
+    text-align: center;
+    position: fixed;
+    left: 0;
+    top: 7%;
+    background: white;
+    border-radius: 5px;
+    width: 100px;
+}
+
+#selectColor{
+    display: none;
+	width: 20px;
+}
+#controlPanel{
+    background: white;
+    color: red;
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    border-radius: 50%;
+    text-align: center;
+    right: 0;
+    bottom: 17%;
+    line-height: 30px;
+}
+#face{
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 15%;
+    border-radius: 10px;
+    width: 139px;
+    height: 34px;
+    line-height: 34px;
+    overflow: hidden;
+}
+#face a{
+    padding: 20px;
+    background: white;
+}
+#face .action{
+    opacity: 0.5;
+}
+#panel {
+    padding-left: 0;
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    background: white;
+}
+#app #alertBox{
+    top: 100%;
+    height: 80%;
+    position: absolute;
+    width: 100%;
+}
+#preview_img{
+    margin: 10px;
+    height: 23%;
+    margin-top: 36px;
+    background: white;
+    overflow: hidden;
+    font-size: 0.25rem;
+}
+#preview_img canvas{
+    float: left;
+    width: 20%;
+    margin-left: 10px;
+    margin-top: 3px;
+}
+#preview_box{
+    background-image: url(/Home/Public/img/preview_box.png);
+    background-size: 100% 100%;
+    clear: both;
+    margin: 10px;
+    padding: 20px;
+    height: 56%;
+}
+#price {
+    float: left;
+    margin-top: -5px;
+    text-align: center;
+    font-size: 0.35rem;
+    color: #aa131a;
+}
+#number{
+    text-align: center;
+    width: 30px;
+}
+#queding {
+    text-align: center;
+}
+#endtype{
+    text-align: center;
+}
+#preview_img p{
+    padding-left: 30%;
+}
+#controlBottom ul {
+    list-style: none;
+    width: 80%;
+    margin: 0 auto;
+    height: 37px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+#controlBottom li{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    position: relative;
+}
+#controlBottom li p{
+    display: none;
+    font-size: 100%;
+    position: absolute;
+    top: 75%;
+    color: gray;
+}
+#next{
+    width: 35%;
+    margin-top: 24px;
+}
+#dec, #number, #inc {
+    width: 33%;
+    float: left;
+    height: 20px;
+    line-height: 20px;
+}
+#endnum #decinc {
+    background-size: 100% 100%;
+    background-image: url(/Home/Public/img/incdec.png);
+    float: right;
+    width: 40%;
+    height: 20px;
+    margin-right: 20px;
+}
+#alertContent {
+    overflow: hidden;
+    background-size: 100% 100%;
+    position: absolute;
+    background-image: url(/Home/Public/img/alertContentbg.png);
+    width: 79%;
+    height: 100%;
+    font-size: 0.25rem;
+    left: 50%;
+    top:77%;
+    transform: translate(-50%);
+}
+img#muhe {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+#alertP{
+    display: none;
+    z-index:10001 ;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    left: 0;top: 0;
+    width: 100%;height: 100%;
+}
+#address>div{
+    float: left;
+}
+img#modeladdr {
+    float: left;
+    width: 15%;
+    margin-top: -4px;
+    margin-right: 4px;
+}
+
+#liuyanbox{
+    border-top: 1px solid #f4f4f4;
+    clear: both;
+    padding: 10px 0;
+    height: 20%;
+    border-bottom: 1px solid #f4f4f4;
+}
+#liuyanbox>div{
+    float: left;
+}
+textarea{
+    width: 60%;
+    float: left;
+    border: 1px solid black;
+}
+#addresscontent {
+    width: 67%;
+    height: 1rem;
+}
+#queding img {
+    position: fixed;
+    width: 43%;
+    margin-top: 22px;
+}
+#goodsprice {
+    float: right;
+    color: #a9141a;
+}
+#goodssend {
+    color: #949494;
+    float: right;
+    font-size: 0.2rem;
+    margin-top: -10px;
+}
+#upload {
+    position: fixed;
+    left: 50%;
+    width: 15%;
+    top: 45%;
+    transform: translate(-50%,-50%);
+}
+#hide{
+    height: 150px;
+    position: absolute;
+    bottom: 0;
+    width: 35%;
+    left: 50%;
+    transform: translate(-50%);
+}

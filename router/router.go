@@ -13,13 +13,31 @@ type RouterMap struct {
 
 // RouterMaps 路由列表
 var RouterMaps = []*RouterMap{
+
 	{
-		Path: "/item/",
-		Fn:   controllers.ArticleItem,
+		Path: "/test/",
+		Fn:   controllers.Test,
 	},
 	{
-		Path: "/view/",
-		Fn:   controllers.ArticleItem,
+		Path: "/testconn/",
+		Fn:   controllers.TestConn,
+	},
+	{
+		Path: "/login/",
+		Fn:   controllers.Login,
+	},
+	//upload image gdemo
+	{
+		Path: "/",
+		Fn:   controllers.ListHandler,
+	},
+	{
+		Path: "/view",
+		Fn:   controllers.ViewHandler,
+	},
+	{
+		Path: "/upload",
+		Fn:   controllers.UploadHandler,
 	},
 }
 
