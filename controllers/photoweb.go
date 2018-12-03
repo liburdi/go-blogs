@@ -3,14 +3,10 @@ package controllers
 import (
 	"blog/config"
 	"html/template"
-
-		"io"
-		"io/ioutil"
-	//	"log"
+	"io"
+	"io/ioutil"
 	"net/http"
-	//	"os"
-	//	"syscall"
-	"fmt"
+	"os"
 )
 
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
@@ -25,24 +21,52 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		f, h, err := r.FormFile("image")
 		checkErr(err)
 		filename := h.Filename
-		defer f.close()
+		defer f.Close()
 		t, err := os.Create(config.UPLOAD_DIR + "/" + filename)
 		checkErr(err)
-		defer t.close()
-		if _,err:=io.C
+		defer t.Close()
+		if _, err := io.Copy(t, f); err != nil {
+			checkErr(err)
+			return
+		}
+		http.Redirect(w, r, "/view?id="+filename, http.StatusFound)
 	}
 
 }
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(1)
+	imageId := r.FormValue("id")
+	imagePath := config.UPLOAD_DIR + "/" + imageId
+	w.Header().Set("Content-Type", "image")
+	http.ServeFile(w, r, imagePath)
 }
 func ListHandler(w http.ResponseWriter, r *http.Request) {
-	locals := make(map[string]interface{})
-	locals["name"] = "asdasd"
-	if r.Method == "GET" {
-		t, err := template.ParseFiles(config.TemplateDir + "/UploadTest/list.html")
-		checkErr(err)
-		t.Execute(w, locals)
+	fileInfoArr, err := ioutil.ReadDir("./uploads")
+	if err != nil {
+		http.Error(w, err.Error(),
+			http.StatusInternalServerError)
+		return
+
+	}
+	//方式一
+	//	var listHtml string
+	//	for _, fileInfo := range fileInfoArr {
+	//		imgid := fileInfo.Name()
+	//		listHtml += "<li><a href=\"/view?id=" + imgid + "\">imgid</a></li>"
+
+	//	}
+	//	io.WriteString(w, "<div>"+listHtml+"</div>")
+	//方式二
+	var locals = make(map[string]interface{})
+	var images = []string{}
+	for _, fileInfo := range fileInfoArr {
+		images = append(images, fileInfo.Name())
+	}
+	locals["images"] = images
+	t, err := template.ParseFiles(config.TemplateDir + "/UploadTest/list.html")
+	if err != nil {
+		http.Error(w, err.Error(),
+			http.StatusInternalServerError)
 		return
 	}
+	t.Execute(w, locals)
 }
