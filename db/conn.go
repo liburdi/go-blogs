@@ -2,6 +2,7 @@ package db
 
 import (
 	"blog/config"
+	//"blog/controllers"
 	"database/sql"
 	"errors"
 	"fmt"
@@ -16,7 +17,6 @@ var dns string
 
 func init() {
 	fillDns()
-
 	// 启动时就打开数据库连接
 	if err := initEngine(); err != nil {
 		panic(err)
@@ -58,8 +58,8 @@ func TestDB() error {
 	}
 
 	// 初始化 MasterDB
+	//controllers.CheckErr(Init())
 	Init()
-
 	return nil
 }
 
@@ -99,10 +99,9 @@ func initEngine() error {
 	MasterDB.SetMaxIdleConns(maxIdle)
 	MasterDB.SetMaxOpenConns(maxConn)
 
-	showSQL := false
 	logLevel := 1
 
-	MasterDB.ShowSQL(showSQL)
+	MasterDB.ShowSQL(false)
 	MasterDB.Logger().SetLevel(core.LogLevel(logLevel))
 
 	// 启用缓存

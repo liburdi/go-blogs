@@ -15,6 +15,6 @@ func main() {
 	if err != nil {
 		log.Println("Server Start Failed")
 	} else {
-		log.Println("Listening on 0.0.0.0:8090")
+		log.Println("Listening on 0.0.0.0:8080")
 	}
 }
