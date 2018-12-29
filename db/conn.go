@@ -14,6 +14,10 @@ import (
 
 var MasterDB *xorm.Engine
 var dns string
+var (
+	ConnectDBErr = errors.New("connect db error")
+	UseDBErr     = errors.New("use db error")
+)
 
 func init() {
 	fillDns()
@@ -23,10 +27,45 @@ func init() {
 	}
 }
 
-var (
-	ConnectDBErr = errors.New("connect db error")
-	UseDBErr     = errors.New("use db error")
-)
+func fillDns() {
+	dns = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=True&loc=Local",
+		config.MysqlUser,
+		config.MysqlPassword,
+		config.MysqlHost,
+		config.MysqlPort,
+		config.MysqlDbname,
+		config.MysqlCharset)
+}
+
+func initEngine() error {
+	var err error
+
+	MasterDB, err = xorm.NewEngine("mysql", dns)
+	if err != nil {
+		return err
+	}
+
+	maxIdle := 2
+	maxConn := 10
+
+	MasterDB.SetMaxIdleConns(maxIdle)
+	MasterDB.SetMaxOpenConns(maxConn)
+
+	logLevel := 1
+
+	MasterDB.ShowSQL(false)
+	MasterDB.Logger().SetLevel(core.LogLevel(logLevel))
+
+	// 启用缓存
+	// cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 1000)
+	// MasterDB.SetDefaultCacher(cacher)
+
+	return nil
+}
+
+func StdMasterDB() *sql.DB {
+	return MasterDB.DB().DB
+}
 
 // TestDB 测试数据库
 func TestDB() error {
@@ -73,44 +112,4 @@ func Init() error {
 	}
 
 	return nil
-}
-
-func fillDns() {
-	dns = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=True&loc=Local",
-		config.MysqlUser,
-		config.MysqlPassword,
-		config.MysqlHost,
-		config.MysqlPort,
-		config.MysqlDbname,
-		config.MysqlCharset)
-}
-
-func initEngine() error {
-	var err error
-
-	MasterDB, err = xorm.NewEngine("mysql", dns)
-	if err != nil {
-		return err
-	}
-
-	maxIdle := 2
-	maxConn := 10
-
-	MasterDB.SetMaxIdleConns(maxIdle)
-	MasterDB.SetMaxOpenConns(maxConn)
-
-	logLevel := 1
-
-	MasterDB.ShowSQL(false)
-	MasterDB.Logger().SetLevel(core.LogLevel(logLevel))
-
-	// 启用缓存
-	// cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 1000)
-	// MasterDB.SetDefaultCacher(cacher)
-
-	return nil
-}
-
-func StdMasterDB() *sql.DB {
-	return MasterDB.DB().DB
 }

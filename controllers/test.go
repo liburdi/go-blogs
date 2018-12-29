@@ -20,21 +20,20 @@ func Test(w http.ResponseWriter, r *http.Request) {
 }
 func TestConn(w http.ResponseWriter, r *http.Request) {
 	users := make([]*models.Php41Users, 0)
-	err := MasterDB.Where("(user_id=?)", 1).Find(&users)
-	fmt.Println(err)
-	fmt.Println(users)
+	err := MasterDB.Where("(user_id>?)", 0).Find(&users)
+	for _, user := range users {
+		fmt.Println(user)
+	}
+
+	checkErr(err)
 	userIdList := make([]int, len(users))
-	fmt.Println(userIdList)
 	for key, user := range users {
-		fmt.Println(user.UserId)
 		userIdList[key] = user.UserId
-		fmt.Println(userIdList[key])
 	}
 	goods := make([]*models.Php41Goods, 0)
 	err = MasterDB.In("user_id", userIdList).Find(&goods)
-	fmt.Println(err)
-	for _, good := range goods {
-		fmt.Println(good)
-	}
-
+	checkErr(err)
+	//for _, good := range goods {
+	//	fmt.Println(good.UserId)
+	//}
 }
