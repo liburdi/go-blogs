@@ -104,12 +104,10 @@ func TestDB() error {
 
 func Init() error {
 	fillDns()
-
 	// 启动时就打开数据库连接
 	if err := initEngine(); err != nil {
 		fmt.Println("mysql is not open:", err)
 		return err
 	}
-
 	return nil
 }
