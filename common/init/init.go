@@ -10,6 +10,11 @@ type ApiRestful struct {
 	Message string
 	Data interface{}
 }
+type Seo struct{
+	PageTitle string
+	Keywords string
+	Description string
+}
 
 /**
  *restful api return

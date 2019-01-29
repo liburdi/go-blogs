@@ -46,11 +46,22 @@ func Note(w http.ResponseWriter, r *http.Request) {
 	goodsIntro := &models.Php41GoodsIntroduce{}
 	_, err = MasterDB.Id(goodPLus.GoodsId).Get(goodsIntro)
 	goodPLus.Intro = goodsIntro.GoodsIntroduce
+	user := &models.Php41Users{}
+	_, err = MasterDB.Id(goodPLus.UserId).Get(user)
 	checkErr(err)
+	//seo:=&init_com.Seo{
+	//	PageTitle:goodPLus.GoodsName,
+	//	Keywords:goodPLus.Keywords,
+	//	Description:goodPLus.Description,
+	//}
+
+	data:=make(map[string]interface{})
+	data["Compose"]=goodPLus
+	data["User"]=user
 	api := init_com.ApiRestful{
 		Code:    200,
 		Message: "Success",
-		Data:    goodPLus,
+		Data:    data,
 	}
 	_ = api.ApiRestful(w)
 	//checkErr(err)

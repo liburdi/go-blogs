@@ -27,7 +27,7 @@ var RouterMaps = []*RouterMap{
 		Fn:   controllers.TestAuth,
 	},
 	{
-		Path: "/home/index/note",
+		Path: "/note",
 		Fn:   controllers.Note,
 	},
 	{
