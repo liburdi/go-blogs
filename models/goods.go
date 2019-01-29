@@ -17,8 +17,16 @@ type Php41Goods struct {
 	Description    string    `json:"description" xorm:"varchar(300)"`
 	Cate           string    `json:"cate" xorm:"char(32)"`
 	CatId          int       `json:"cat_id" xorm:"int(2)"`
-	OriginAuthor        string    `json:"origin_author" xorm:"varchar(32)"`
-	OriginUrl           string    `json:"origin_url" xorm:"varchar(255)"`
+	OriginAuthor   string    `json:"origin_author" xorm:"varchar(32)"`
+	OriginUrl      string    `json:"origin_url" xorm:"varchar(255)"`
 	UserId         int       `json:"user_id" xorm:"int(11)"`
 	City           string    `json:"city" xorm:"varchar(50)"`
+}
+type Php41GoodsPLus struct {
+	*Php41Goods
+	Intro string
+}
+type Php41GoodsIntroduce struct {
+	GoodsId        int    `json:"goods_id" xorm:"pk"`
+	GoodsIntroduce string `json:"goods_introduce" xorm:"text"`
 }

@@ -53,8 +53,6 @@ func Auth(w http.ResponseWriter, r *http.Request) int {
 		fmt.Println(err)
 		return config.ErrAuth
 	}
-	fmt.Println(getValue)
-	fmt.Println(BasicUserInfo)
 	return 0
 }
 

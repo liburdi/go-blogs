@@ -39,12 +39,10 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
  * 浏览
  */
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
-	ParentChontroller(w,r)
-
-	//imageId := r.FormValue("id")
-	//imagePath := config.UPLOAD_DIR + "/" + imageId
-	//w.Header().Set("Content-Type", "image")
-	//http.ServeFile(w, r, imagePath)
+	imageId := r.FormValue("id")
+	imagePath := config.UPLOAD_DIR + "/" + imageId
+	w.Header().Set("Content-Type", "image")
+	http.ServeFile(w, r, imagePath)
 }
 
 /**

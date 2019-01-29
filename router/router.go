@@ -19,6 +19,18 @@ var RouterMaps = []*RouterMap{
 		Fn:   controllers.Test,
 	},
 	{
+		Path: "/testApi/",
+		Fn:   controllers.TestApi,
+	},
+	{
+		Path: "/testAuth/",
+		Fn:   controllers.TestAuth,
+	},
+	{
+		Path: "/home/index/note",
+		Fn:   controllers.Note,
+	},
+	{
 		Path: "/testconn/",
 		Fn:   controllers.TestConn,
 	},

@@ -8,6 +8,7 @@ import (
 type ApiRestful struct {
 	Code int
 	Message string
+	Data interface{}
 }
 
 /**
