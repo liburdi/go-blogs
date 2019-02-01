@@ -31,6 +31,14 @@ var RouterMaps = []*RouterMap{
 		Fn:   controllers.Note,
 	},
 	{
+		Path: "/author_dynamic",
+		Fn:   controllers.AuthorDynamic,
+	},
+	{
+		Path: "/nice_comment",
+		Fn:   controllers.NiceComment,
+	},
+	{
 		Path: "/testconn/",
 		Fn:   controllers.TestConn,
 	},

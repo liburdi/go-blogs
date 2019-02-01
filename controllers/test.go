@@ -44,7 +44,7 @@ func Note(w http.ResponseWriter, r *http.Request) {
 		Php41Goods: goods,
 	}
 	goodsIntro := &models.Php41GoodsIntroduce{}
-	_, err = MasterDB.Id(goodPLus.GoodsId).Get(goodsIntro)
+	_, err = MasterDB.Id(goodPLus.GoodsId).Get(&goodsIntro)
 	goodPLus.Intro = goodsIntro.GoodsIntroduce
 	user := &models.Php41Users{}
 	_, err = MasterDB.Id(goodPLus.UserId).Get(user)
@@ -67,6 +67,44 @@ func Note(w http.ResponseWriter, r *http.Request) {
 	//checkErr(err)
 
 }
+
+func AuthorDynamic(w http.ResponseWriter,r *http.Request){
+	userId := r.FormValue("id")
+	goods := make([]*models.Php41Goods,0)
+	err := MasterDB.Where("(user_id=?)", userId).Limit(10).Find(&goods)
+	checkErr(err)
+	api := init_com.ApiRestful{
+		Code:    200,
+		Message: "Success",
+		Data:    goods,
+	}
+	err = api.ApiRestful(w)
+	checkErr(err)
+}
+func NiceComment(w http.ResponseWriter,r *http.Request){
+	commentId:=r.FormValue("id")
+	comments:=make([]*models.Php41Ooxx,0)
+	err := MasterDB.Where("(target_id=?)", commentId).Find(&comments)
+	fmt.Println(comments)
+	fmt.Println(err)
+	commentInfos:=make([]models.CommentInfo,3)
+	fmt.Println(commentInfos)
+	user:=models.Php41Users{}
+	var temp *models.Php41Ooxx;
+	for k,v:=range comments{
+		_,err = MasterDB.Id(v.FromUser).Get(user)
+		temp=v;
+		commentInfos[k].Php41Ooxx=temp
+		commentInfos[k].Author=user.Username
+	}
+	api:= init_com.ApiRestful{
+		Code:    200,
+		Message: "Success",
+		Data:    commentInfos,
+	}
+	err = api.ApiRestful(w)
+}
+//$ooxx->where("parent=%d",$nid)->order('oo desc')->field('comment,author')->limit(3)->select();
 func TestConn(w http.ResponseWriter, r *http.Request) {
 	users := make([]*models.Php41Users, 0)
 	err := MasterDB.Where("(user_id>?)", 0).Find(&users)
