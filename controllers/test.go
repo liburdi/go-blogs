@@ -85,16 +85,18 @@ func NiceComment(w http.ResponseWriter,r *http.Request){
 	commentId:=r.FormValue("id")
 	comments:=make([]*models.Php41Ooxx,0)
 	err := MasterDB.Where("(target_id=?)", commentId).Find(&comments)
-	checkErr(err)
-	commentInfos:=make([]models.CommentInfo,0)
+	fmt.Println(err)
+	commentInfos:=make([]models.CommentInfo,10)
 	user:=make([] *models.Php41Users,0)
 	var temp *models.Php41Ooxx;
 	for k,v:=range comments{
 		err = MasterDB.Where("user_id = ?",v.FromUser).Find(&user)
+		fmt.Println(user)
 		temp=v;
 		commentInfos[k].Php41Ooxx=temp
 		commentInfos[k].Author=user[k].Username
-		//fmt.Println(commentInfos)
+		fmt.Println(commentInfos)
+
 	}
 	api:= init_com.ApiRestful{
 		Code:    200,
