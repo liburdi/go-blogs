@@ -99,7 +99,7 @@ func NiceComment(w http.ResponseWriter,r *http.Request){
 	api:= init_com.ApiRestful{
 		Code:    200,
 		Message: "Success",
-		Data:    user,
+		Data:    commentInfos,
 	}
 
 	err = api.ApiRestful(w)
