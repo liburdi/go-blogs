@@ -87,21 +87,24 @@ func NiceComment(w http.ResponseWriter,r *http.Request){
 	err := MasterDB.Where("(target_id=?)", commentId).Find(&comments)
 	checkErr(err)
 	commentInfos:=make([]models.CommentInfo,3)
-	user:=&models.Php41Users{}
+	user:=make([] *models.Php41Users,0)
 	var temp *models.Php41Ooxx;
 	for k,v:=range comments{
-		_,err = MasterDB.Id(v.FromUser).Get(user)
+		err = MasterDB.Where("user_id = ?",v.FromUser).Find(&user)
 		temp=v;
 		commentInfos[k].Php41Ooxx=temp
-		commentInfos[k].Author=user.Username
-		fmt.Println(commentInfos)
+		commentInfos[k].Author=user[k].Username
+		//fmt.Println(commentInfos)
 	}
 	api:= init_com.ApiRestful{
 		Code:    200,
 		Message: "Success",
-		Data:    commentInfos,
+		Data:    user,
 	}
+
 	err = api.ApiRestful(w)
+
+
 }
 //$ooxx->where("parent=%d",$nid)->order('oo desc')->field('comment,author')->limit(3)->select();
 func TestConn(w http.ResponseWriter, r *http.Request) {
