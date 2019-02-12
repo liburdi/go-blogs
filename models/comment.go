@@ -17,5 +17,5 @@ type Php41Ooxx struct {
 
 type CommentInfo struct {
 	*Php41Ooxx
-	Author string
+	Author string  `json:"author"`
 }

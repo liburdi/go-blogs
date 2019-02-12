@@ -37,14 +37,14 @@ func TestAuth(w http.ResponseWriter, r *http.Request) {
 func Note(w http.ResponseWriter, r *http.Request) {
 	ParentChontroller(w, r)
 	goodId := r.FormValue("id")
-	//goods := make([]*models.Php41Goods, 0)
 	goods := &models.Php41Goods{}
 	_, err := MasterDB.Id(goodId).Get(goods)
 	goodPLus := &models.Php41GoodsPLus{
 		Php41Goods: goods,
 	}
 	goodsIntro := &models.Php41GoodsIntroduce{}
-	_, err = MasterDB.Id(goodPLus.GoodsId).Get(&goodsIntro)
+	_, err = MasterDB.Id(goodPLus.GoodsId).Get(goodsIntro)
+	fmt.Println(goodsIntro)
 	goodPLus.Intro = goodsIntro.GoodsIntroduce
 	user := &models.Php41Users{}
 	_, err = MasterDB.Id(goodPLus.UserId).Get(user)
@@ -85,17 +85,16 @@ func NiceComment(w http.ResponseWriter,r *http.Request){
 	commentId:=r.FormValue("id")
 	comments:=make([]*models.Php41Ooxx,0)
 	err := MasterDB.Where("(target_id=?)", commentId).Find(&comments)
-	fmt.Println(comments)
-	fmt.Println(err)
+	checkErr(err)
 	commentInfos:=make([]models.CommentInfo,3)
-	fmt.Println(commentInfos)
-	user:=models.Php41Users{}
+	user:=&models.Php41Users{}
 	var temp *models.Php41Ooxx;
 	for k,v:=range comments{
 		_,err = MasterDB.Id(v.FromUser).Get(user)
 		temp=v;
 		commentInfos[k].Php41Ooxx=temp
 		commentInfos[k].Author=user.Username
+		fmt.Println(commentInfos)
 	}
 	api:= init_com.ApiRestful{
 		Code:    200,
