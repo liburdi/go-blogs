@@ -31,6 +31,10 @@ var RouterMaps = []*RouterMap{
 		Fn:   controllers.Note,
 	},
 	{
+		Path: "/is_online",
+		Fn:   controllers.IsOnline,
+	},
+	{
 		Path: "/author_dynamic",
 		Fn:   controllers.AuthorDynamic,
 	},

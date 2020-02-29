@@ -67,6 +67,16 @@ func Note(w http.ResponseWriter, r *http.Request) {
 	//checkErr(err)
 
 }
+func IsOnline(w http.ResponseWriter,r *http.Request){
+	data:=make(map[string]interface{})
+	data["isOnline"]=0
+	api := init_com.ApiRestful{
+		Code:    200,
+		Message: "Success",
+		Data:    data,
+	}
+	_ = api.ApiRestful(w)
+}
 
 func AuthorDynamic(w http.ResponseWriter,r *http.Request){
 	userId := r.FormValue("id")
