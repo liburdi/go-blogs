@@ -69,7 +69,7 @@ func Note(w http.ResponseWriter, r *http.Request) {
 }
 func IsOnline(w http.ResponseWriter,r *http.Request){
 	data:=make(map[string]interface{})
-	data["isOnline"]=0
+	data["isOnline"]=1
 	api := init_com.ApiRestful{
 		Code:    200,
 		Message: "Success",
