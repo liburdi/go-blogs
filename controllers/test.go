@@ -35,7 +35,7 @@ func TestAuth(w http.ResponseWriter, r *http.Request) {
 }
 
 func Note(w http.ResponseWriter, r *http.Request) {
-	ParentChontroller(w, r)
+	//ParentChontroller(w, r)
 	goodId := r.FormValue("id")
 	goods := &models.Php41Goods{}
 	_, err := MasterDB.Id(goodId).Get(goods)
