@@ -7,9 +7,9 @@ var FooterPath = "templates/footer.html"
 
 var MysqlUser = "root"
 var MysqlPassword = "calvin.1."
-var MysqlHost = "39.108.104.253"
+var MysqlHost = "127.0.0.1"
 var MysqlPort = "3306"
-var MysqlDbname = "test1"
+var MysqlDbname = "5iweb"
 var MysqlCharset = "utf8"
 
 const UPLOAD_DIR = "./uploads"

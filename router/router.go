@@ -5,28 +5,47 @@ import (
 	"net/http"
 )
 
-// RouterMap 路由
-type RouterMap struct {
+// Map 路由
+type Map struct {
 	Path string
 	Fn   func(http.ResponseWriter, *http.Request)
 }
 
-// RouterMaps 路由列表
-var RouterMaps = []*RouterMap{
+// Maps 路由列表
+var Maps = []*Map{
 
 	{
 		Path: "/test/",
 		Fn:   controllers.Test,
 	},
 	{
-		Path: "/testconn/",
-		Fn:   controllers.TestConn,
+		Path: "/testApi/",
+		Fn:   controllers.TestApi,
+	},
+	{
+		Path: "/testAuth/",
+		Fn:   controllers.TestAuth,
+	},
+	{
+		Path: "/note",
+		Fn:   controllers.Note,
+	},
+	{
+		Path: "/is_online",
+		Fn:   controllers.IsOnline,
+	},
+	{
+		Path: "/author_dynamic",
+		Fn:   controllers.AuthorDynamic,
+	},
+	{
+		Path: "/nice_comment",
+		Fn:   controllers.NiceComment,
 	},
 	{
 		Path: "/login/",
 		Fn:   controllers.Login,
 	},
-	//upload image gdemo
 	{
 		Path: "/",
 		Fn:   controllers.ListHandler,
@@ -39,12 +58,21 @@ var RouterMaps = []*RouterMap{
 		Path: "/upload",
 		Fn:   controllers.UploadHandler,
 	},
+	{
+		Path: "/reviewList",
+		Fn:   controllers.ReviewList,
+	},
+	{
+		Path: "/modifyReview",
+		Fn:   controllers.ModifyReview,
+	},
+
 }
 
 // Routes 操作
 func Routes() {
-	for i := 0; i < len(RouterMaps); i++ {
-		cRoute := RouterMaps[i]
+	for i := 0; i < len(Maps); i++ {
+		cRoute := Maps[i]
 		http.HandleFunc(cRoute.Path, cRoute.Fn)
 	}
 }
