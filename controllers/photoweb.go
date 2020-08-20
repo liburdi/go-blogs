@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 )
+
 /**
  * 上传
  */
@@ -15,8 +16,8 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		t, err := template.ParseFiles(config.TemplateDir + "/UploadTest/upload.html")
 		checkErr(err)
-		err=t.Execute(w, nil)
-		checkHttpErr(err,w)
+		err = t.Execute(w, nil)
+		checkHttpErr(err, w)
 	}
 
 	if r.Method == "POST" {
@@ -50,7 +51,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
  */
 func ListHandler(w http.ResponseWriter, r *http.Request) {
 	fileInfoArr, err := ioutil.ReadDir("./uploads")
-	checkHttpErr(err,w)
+	checkHttpErr(err, w)
 	//方式一
 	//	var listHtml string
 	//	for _, fileInfo := range fileInfoArr {
@@ -66,7 +67,7 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	locals["images"] = images
 	t, err := template.ParseFiles(config.TemplateDir + "/UploadTest/list.html")
-	checkHttpErr(err,w)
-	err=t.Execute(w, locals)
-	checkHttpErr(err,w)
+	checkHttpErr(err, w)
+	err = t.Execute(w, locals)
+	checkHttpErr(err, w)
 }

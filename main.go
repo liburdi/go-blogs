@@ -1,10 +1,9 @@
 package main
 
 import (
+	"blog/router"
 	"log"
 	"net/http"
-
-	"blog/router"
 )
 
 func main() {
