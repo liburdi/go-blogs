@@ -1,7 +1,7 @@
 package main
 
 import (
-	"blog/router"
+	"./router"
 	"log"
 	"net/http"
 )
