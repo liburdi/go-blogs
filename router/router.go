@@ -1,7 +1,7 @@
 package router
 
 import (
-	"../controllers"
+	"blog/controllers"
 	"net/http"
 )
 

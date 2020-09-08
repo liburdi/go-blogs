@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	initCommon "../common/init"
-	. "../db"
-	"../models"
+	initCommon "blog/common/init"
+	. "blog/db"
+	"blog/models"
 	"net/http"
 	"strconv"
 );

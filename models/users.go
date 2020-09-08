@@ -1,10 +1,10 @@
 package models
 
 import (
-	"../common/tools"
-	"../config"
-	. "../db"
-	"../redis"
+	"blog/common/tools"
+	"blog/config"
+	. "blog/db"
+	"blog/redis"
 	"encoding/json"
 	"fmt"
 	"net/http"

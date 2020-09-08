@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"../config"
+	"blog/config"
 	"html/template"
 	"io"
 	"io/ioutil"

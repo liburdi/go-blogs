@@ -1,7 +1,8 @@
 package main
 
 import (
-	"./router"
+	//go mod init app
+	"app/router"
 	"log"
 	"net/http"
 )
