@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	initCommon "blog/common/init"
-	"blog/common/tools"
-	. "blog/db"
-	"blog/models"
+	initCommon "../common/init"
+	"../common/tools"
+	. "../db"
+	"../models"
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"

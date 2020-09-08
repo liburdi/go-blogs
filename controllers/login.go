@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"blog/config"
+	"../config"
 	"fmt"
 	"html/template"
 	"net/http"

@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"blog/common/tools"
+	"../common/tools"
 	"fmt"
 	"net/http"
 	"time"

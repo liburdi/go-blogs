@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"blog/models"
+	"../models"
 	"fmt"
 	"net/http"
 )
