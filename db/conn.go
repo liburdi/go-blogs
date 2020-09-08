@@ -1,7 +1,7 @@
 package db
 
 import (
-	"blog/config"
+	"../config"
 	//"blog/controllers"
 	"database/sql"
 	"errors"
