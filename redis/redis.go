@@ -12,8 +12,8 @@ import (
 var (
 	Conn          redis.Conn
 	Pool          *redis.Pool
-	redisServer   = flag.String("redisServer", "39.108.104.253:6379", "")
-	redisPassword = flag.String("redisPassword", "Xmjy2018", "")
+	redisServer   = flag.String("redisServer", "127.0.0.1:6379", "")
+	redisPassword = flag.String("redisPassword", "root", "")
 )
 
 //初始化一个pool

@@ -2,7 +2,6 @@ package db
 
 import (
 	"blog/config"
-	//"blog/controllers"
 	"database/sql"
 	"errors"
 	"fmt"
