@@ -2,9 +2,17 @@ FROM cent:v2
 
 EXPOSE 8080
 
-ADD blog /
 
-ADD blog.exe /
+RUN
+if [ ! -x "blog.exe"]; then \
+   ADD blog / \
+fi
+
+RUN
+if [ ! -x "blog.exe"]; then \
+   ADD blog.exe / \
+fi
+
 
 RUN mkdir -p /static
 
