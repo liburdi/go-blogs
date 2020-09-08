@@ -12,4 +12,4 @@ RUN mkdir -p /uploads
 
 ADD uploads /uploads
 
-CMD [ "blog"]
+CMD [ "\blog"]
