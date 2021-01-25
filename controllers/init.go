@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"blog/models"
+	"golangschool/models"
 	"fmt"
 	"net/http"
 )
@@ -13,7 +13,11 @@ type UserInfo struct {
 func init(){
 	fmt.Println("init controller")
 }
-func ParentChontroller(w http.ResponseWriter, r *http.Request){
+/**
+ * @params http.ResponseWrite w
+ * @params *http.Request r
+ */
+func ParentController(w http.ResponseWriter, r *http.Request){
 	status:=models.Auth(w,r)
 	fmt.Println(status)
 }

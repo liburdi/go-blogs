@@ -3,6 +3,7 @@ package redis
 import (
 	"flag"
 	"fmt"
+	"golangschool/common/tools"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
@@ -28,11 +29,12 @@ func newPool(server, password string) *redis.Pool {
 				return nil, err
 			}
 			if _, err := c.Do("AUTH", password); err != nil {
-				c.Close()
+				defer tools.CheckErr(c.Close())
 				return nil, err
 			}
 			return c, err
 		},
+
 		TestOnBorrow: func(c redis.Conn, t time.Time) error {
 			if time.Since(t) < time.Minute {
 				return nil
