@@ -2,7 +2,7 @@ FROM cent:v2
 
 EXPOSE 8080
 
-ADD blog /
+ADD golangschool /
 
 RUN mkdir -p /static
 
@@ -12,4 +12,4 @@ RUN mkdir -p /uploads
 
 ADD uploads /uploads
 
-CMD [ "\blog"]
+CMD [ "./golangschool"]

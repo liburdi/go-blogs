@@ -1,7 +1,7 @@
 package router
 
 import (
-	"blog/controllers"
+	"golangschool/controllers"
 	"net/http"
 )
 
@@ -47,7 +47,7 @@ var Maps = []*Map{
 		Fn:   controllers.Login,
 	},
 	{
-		Path: "/",
+		Path: "/list",
 		Fn:   controllers.ListHandler,
 	},
 	{

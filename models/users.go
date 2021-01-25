@@ -1,10 +1,10 @@
 package models
 
 import (
-	"blog/common/tools"
-	"blog/config"
-	. "blog/db"
-	"blog/redis"
+	"golangschool/common/tools"
+	"golangschool/config"
+	. "golangschool/db"
+	"golangschool/redis"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -17,13 +17,13 @@ type Php41Users struct {
 	Username  string `json:"username"`
 	Tel       string `json:"tel"`
 	Password  string `json:"password" xorm:"varchar(200)"`
-	Taglist   string `json:"taglist" xorm:"varchar(200)"`
-	Headimg   string `json:"headimg" xorm:"varchar(200)"`
+	TagList   string `json:"tag_list" xorm:"varchar(200)"`
+	HeadImg   string `json:"head_img" xorm:"varchar(200)"`
 	Position  string `json:"position" xorm:varchar(200)"`
 	Company   string `json:"company" xorm:"varchar(200)"`
 	SelfIntro string `json:"self_intro" xorm:"varchar(200)"`
 	Homepage  string `json:"homepage" xorm:"varchar(200)"`
-	THeadimg  string `json:"t_headimg" xorm:"varchar(200)"`
+	THeadImg  string `json:"t_head_img" xorm:"varchar(200)"`
 }
 
 type UserInfoRedis struct {
@@ -31,13 +31,13 @@ type UserInfoRedis struct {
 	UserName  string `json:"username"`
 	Tel       string `json:"tel"`
 	PassWord  string `json:"password"`
-	TagList   string `json:"taglist"`
-	HeadImg   string `json:"headimg"`
+	TagList   string `json:"tag_list"`
+	HeadImg   string `json:"head_img"`
 	Position  string `json:"position"`
 	Company   string `json:"company"`
 	SelfIntro string `json:"self_intro"`
 	HomePage  string `json:"homepage"`
-	THeadImg  string `json:"t_headimg"`
+	THeadImg  string `json:"t_head_img"`
 }
 
 func Auth(w http.ResponseWriter, r *http.Request) int {

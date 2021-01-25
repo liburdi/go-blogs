@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	initCommon "blog/common/init"
-	. "blog/db"
-	"blog/models"
+	initCommon "golangschool/common/init"
+	. "golangschool/db"
+	"golangschool/models"
 	"net/http"
 	"strconv"
 );

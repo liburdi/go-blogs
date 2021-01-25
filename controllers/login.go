@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"blog/config"
+	"golangschool/config"
 	"fmt"
 	"html/template"
 	"net/http"

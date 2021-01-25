@@ -1,13 +1,13 @@
 package controllers
 
 import (
-	initCommon "blog/common/init"
-	"blog/common/tools"
-	. "blog/db"
-	"blog/models"
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
+	initCommon "golangschool/common/init"
+	"golangschool/common/tools"
+	. "golangschool/db"
+	"golangschool/models"
 	"net/http"
 )
 
@@ -32,7 +32,7 @@ func TestApi(w http.ResponseWriter, r *http.Request) {
 	checkErr(err)
 }
 func TestAuth(w http.ResponseWriter, r *http.Request) {
-	ParentChontroller(w, r)
+	ParentController(w, r)
 }
 
 func Note(w http.ResponseWriter, r *http.Request) {

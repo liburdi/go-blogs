@@ -1,14 +1,13 @@
 package db
 
 import (
-	"blog/config"
 	"database/sql"
 	"errors"
 	"fmt"
-
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/go-xorm/core"
 	"github.com/go-xorm/xorm"
+	"golangschool/common/tools"
+	"golangschool/config"
 )
 
 var MasterDB *xorm.Engine
@@ -50,10 +49,8 @@ func initEngine() error {
 	MasterDB.SetMaxIdleConns(maxIdle)
 	MasterDB.SetMaxOpenConns(maxConn)
 
-	logLevel := 1
 
 	MasterDB.ShowSQL(false)
-	MasterDB.Logger().SetLevel(core.LogLevel(logLevel))
 
 	// 启用缓存
 	// cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 1000)
@@ -69,23 +66,23 @@ func StdMasterDB() *sql.DB {
 // TestDB 测试数据库
 func TestDB() error {
 	fillDns()
-	egnine, err := xorm.NewEngine("mysql", dns)
+	eg, err := xorm.NewEngine("mysql", dns)
 	if err != nil {
 		fmt.Println("new engine error:", err)
 		return err
 	}
-	defer egnine.Close()
+	defer tools.CheckErr(eg.Close())
 
 	// 测试数据库连接是否 OK
-	if err = egnine.Ping(); err != nil {
+	if err = eg.Ping(); err != nil {
 		fmt.Println("ping db error:", err)
 		return ConnectDBErr
 	}
 
-	_, err = egnine.Exec("use " + "test1")
+	_, err = eg.Exec("use " + "test1")
 	if err != nil {
 		fmt.Println("use db error:", err)
-		_, err = egnine.Exec("CREATE DATABASE " + "test1" + " DEFAULT CHARACTER SET " + "utf8")
+		_, err = eg.Exec("CREATE DATABASE " + "test1" + " DEFAULT CHARACTER SET " + "utf8")
 		if err != nil {
 			fmt.Println("create database error:", err)
 
@@ -97,7 +94,7 @@ func TestDB() error {
 
 	// 初始化 MasterDB
 	//controllers.CheckErr(Init())
-	Init()
+	tools.CheckErr(Init())
 	return nil
 }
 
