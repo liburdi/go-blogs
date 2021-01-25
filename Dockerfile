@@ -12,4 +12,4 @@ RUN mkdir -p /uploads
 
 ADD uploads /uploads
 
-CMD [ "\golangschool"]
+CMD [ "./golangschool"]

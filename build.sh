@@ -17,8 +17,11 @@ if [ $1 =  "start" ]; then
   if [ ! -d static ]; then
           mkdir static
   fi
+  if [ ! -d uploads ]; then
+          mkdir uploads
+  fi
   go build -o golangschool
-  docker build -t golangschool:$timeNow .
+  docker build  -t golangschool:$timeNow .
   docker run -t -i -d -p 127.0.0.1:8080:8080  --name go_blog golangschool:$timeNow
 
 fi
