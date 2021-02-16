@@ -23,26 +23,32 @@ var AuthRouters = []string{
 var Maps = []*Map{
 
 	{
+		Method: "Get",
 		Path: "/test/",
 		Fn:   controllers.Test,
 	},
 	{
+		Method: "Get",
 		Path: "/testApi/",
 		Fn:   controllers.TestApi,
 	},
 	{
+		Method: "Get",
 		Path: "/testAuth/",
 		Fn:   controllers.TestAuth,
 	},
 	{
+		Method: "Get",
 		Path: "/note",
 		Fn:   controllers.Note,
 	},
 	{
+		Method: "Get",
 		Path: "/isOnline",
 		Fn:   controllers.IsOnline,
 	},
 	{
+		Method: "Get",
 		Path: "/authorDynamic",
 		Fn:   controllers.AuthorDynamic,
 	},
