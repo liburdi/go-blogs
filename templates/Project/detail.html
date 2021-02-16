@@ -1,0 +1,402 @@
+{{define "projectDetail"}}
+
+{{template  "layout" .}}
+<script type="text/javascript" src="{{.config.JsPath}}showdown.min.js"></script>
+<script type="text/javascript" src="{{.config.JsPath}}markdown-upload.js?v=20201136"></script>
+<div class="container projects">
+    <main class="col-md-12 col-sm-12 col-lg-12 main-content bre">
+
+        <div>
+            <h2 class="note-title"></h2>
+            <p class="time_s">
+                <span class="add-time"></span>
+            </p>
+        </div>
+        <div id="content" class="cell">
+            <div id="compose-intro">
+                <p>
+                    项目简介:
+                </p>
+            </div>
+            <div id="compose-repositories">
+                <p>
+                    项目仓库:<a href=""></a>
+                </p>
+            </div>
+        </div>
+        <div class="wechat_group_box">
+            <img class="wechat_group_img" src="{{.config.ImgPath}}wechat-group.png"/>
+            <div class="wechat_group_title">
+                <div style="font-size:20px;color:#fff">扫码备注"进群"</div>
+                <d1iv style="font-size:25px;color:#fff; background-color:#ffb400;border-radius: 5px;">深度交流</d1iv>
+
+            </div>
+        </div>
+        <div class="cont_copyright">
+            <b>版权声明：</b>
+            本站刊载的所有内容，文字、图片等资源均源于网上搜集或者由用户投稿，仅供学习和研究使用，无任何商业目的，其版权归原作者所有，对可以提供充分证据的侵权信息，本站将在确认后12小时内删除。
+        </div>
+        <div>
+            <div style="clear:both;">
+            </div>
+            <h3 class="title" id="comments">TOTAL COMMENTS: <span class="plus-one">
+                <a href="#respond" title="来一发">+1</a></span>
+            </h3>
+            <span class="break"></span>
+            <div class="comments">
+            </div>
+            <ol class="commentList" style="list-style-type: none;">
+
+            </ol>
+
+            <div class="comments">
+            </div>
+
+            <form method="post" id="commentForm">
+                <div style="display:none;">
+                    <input type="text" name="to_user" value=0 />
+                </div>
+                <div class="hide-input" style="display:none;">
+                    <p>
+                        <label for="author">称呼: </label>
+                        <input type="text" name="author" id="author" value={{.User.UserName}} title="常用的网络 ID，必填项"
+                               size="22" tabindex="1">
+                    </p>
+                </div>
+                <div style="display: flex;justify-content: center">
+                    <div class="textarea flex_container">
+                    <textarea name="msg" id="mk-introduce" rows="10" tabindex="4" onkeyup="convert()"
+                              placeholder=""
+                              onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
+
+                        {{if .config.User.UserId}}
+                        <div style="display: flex;flex-direction: column;justify-content: center;align-items: flex-start; ">
+                            <label class="label-input">
+                                <input name="submit" id="submit" type="submit" tabindex="5"
+                                       value="点击发布 / Ctrl+Enter {{.config}}">
+                            </label>
+                            <br/>
+                            <div style="display: flex; flex-direction: column;justify-content:flex-start;align-items:flex-start; ">
+                                <span>* 请尽量让自己的回复能够对别人有帮助</span>
+                                <span>* 支持Markdown格式, **粗体**、~~删除线~~、`单行代码`</span>
+                                <span>* 加链接示例 [golang中文网](https://www.golangschool.com)</span>
+                                <span>* 拖拽、粘贴图片自动插入图片,点击小图片可删除</span>
+
+                                <div id="img" style="display: flex;justify-content: flex-start">
+
+                                </div>
+                            </div>
+
+                            <div id="type" style="display:none;">comment</div>
+                        </div>
+                        {{else}}
+                        <div style="display: flex;flex-direction: column;justify-content: center;align-items: flex-start;">
+                            <label class="label-input">
+                                <a class="a-input" id="submit"
+                                   href="/Home/Index/login">点击发布 / 未登录？</a>
+                                <br/>
+                            </label>
+                            <div style="display: flex; flex-direction: column;justify-content:flex-start;align-items:flex-start;font-size:10px;color:#90979c; ">
+                                <span>* 请尽量让自己的回复能够对别人有帮助</span>
+                                <span>* 支持Markdown格式, **粗体**、~~删除线~~、`单行代码`</span>
+                                <span>* 加链接示例 [golang中文网](https://www.golangschool.com)</span>
+                                <span>* 拖拽、粘贴图片自动插入图片,点击小图片可删除</span>
+
+                                <div id="img" style="display: flex;justify-content: flex-start">
+
+                                </div>
+                            </div>
+
+                            <div id="type" style="display:none;">
+                                comment
+                            </div>
+                        </div>
+                        {{end}}
+                    </div>
+
+                    <div id="result" class="col-md-5" style="width: 45%;">
+                        <div></div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+</div>
+
+<script>
+    let id = parseInt(window.location.href.replace(/[^0-9]/ig, ""));
+
+    /**
+     * 获取评论
+     */
+    function getComment() {
+        $.get("/golang/niceComment?id=" + id + "&targetType=2", function (data, status) {
+            data = JSON.parse(data);
+            $('.in').empty();
+            $('.commentList').empty();
+            $.each(data.Data, function (idx, obj) {
+                console.log(obj);
+                if (obj.author !== '') {
+
+                    $('.in').append(' <div class="acv_author">\n' +
+                        '                        <a class="nice_comment_user-url" href="/index.php/Home/User/center?user=' + obj.from_user + '"><span class="nice_comment_user_name">' + obj.author + '</span></a>\n' +
+                        '                        <span class="add-time">' + obj.add_time + '</span>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="acv_comment ">\n' +
+                        '                        <p>\n' +
+                        '                            ' + obj.msg + ' \n' +
+                        '                        </p>\n' +
+                        '                    </div>');
+
+
+                    $('.commentList').append('<li id="comment-' + obj.goods_id + '"> \n' +
+                        ' <div>\n' +
+                        ' <div class="row_comment"> \n' +
+                        '<div class="author"> \n' +
+                        '<strong> \n' +
+                        '<a class="comment_user-url"' +
+                        'href="/index.php/Home/User/center?user=' + obj.from_user + '"><span class="comment_user_name">' +
+                        '' + obj.author + '</span></a></strong><br>' +
+                        '<small class="visible-lg-block">' + obj.add_time + '</small></div>' +
+                        '<div class="text">' + obj.msg + '</div>' +
+                        '<div class="jandan-vote">' +
+                        '<span class="tucao-like-container">\n' +
+                        '<a title="圈圈/支持" href="javascript:;" class="comment-like like" id="oo' + obj.goods_id + '"\n' +
+                        'data-id="' + obj.goods_id + '" data-type="post"\n' +
+                        'onclick="oo(' + obj.goods_id + ')">OO</a> [<span>' + obj.like_count + '</span>]</span>\n' +
+                        '<span class="tucao-unlike-container">' +
+                        '<a title="叉叉/反对" href="javascript:;" class="comment-unlike unlike" id="xx' + obj.goods_id + '"\n' +
+                        'data-id="' + obj.goods_id + '" data-type="neg" onclick = "xx(' + obj.goods_id + ')" > XX</a>[<span>' + obj.unlike_count + '</span>]\n' +
+                        '</span>\n' +
+                        // '<span class="tucao-unlike-container"> \n' +
+                        // '<a href="javascript:;" class="tucao-btn" data-id="' + obj.goods_id + '"\n' +
+                        // 'onclick = "reply('+obj.author+')" > 回复</a> \n' +
+                        // '</span>\n' +
+                        '</div>\n' +
+                        '</div>\n' +
+                        '</div>\n' +
+                        '</li>\n'
+                    )
+
+
+                }
+
+
+            });
+
+
+        });
+    }
+
+    //提交评论
+    $(function () {
+        $('#commentForm').submit(function () {
+            $('#loading').slideDown();
+            console.log($(this).serialize());
+            $("#submit").attr('disabled', false);
+            $.ajax({
+                url: '/golang/pushProjectComment',
+                data: {
+                    'project_id': id,
+                    'to_user': $('input[name="to_user"]').val(),
+                    'author': $('input[name="author"]').val(),
+                    'msg': document.getElementById("result").getElementsByTagName('div')[0].innerHTML
+                },
+                type: "POST",
+                error: function (request) {
+                    console.log(request)
+                    if (request.status === 401) {
+                        location.href = '/Home/Index/Login'
+                        return
+                    } else {
+                        $('#loading').slideUp();
+                        let errorHtml = request.responseText;
+                        errorHtml = errorHtml.replace(/WordPress &rsaquo; Error/i, "");
+                        $('#error').slideDown().html('<p style="color:red;"> ' + errorHtml + '</p> ');
+                        setTimeout(function () {
+                            $("#submit").attr('disabled', false).fadeTo('slow', 1);
+                            $('#error').slideUp();
+                        }, 5000);
+                    }
+                },
+                success: function (res) {
+                    res = JSON.parse(res);
+                    if (res.Code === 200) {
+                        $('#loading').slideUp();
+                        setTimeout(function () {
+                            let errHtml = '评论成功√';
+                            errHtml = errHtml.replace(/WordPress &rsaquo; Error/i, "");
+                            $('#error').slideDown().html('<p style="color:#5EAC39;"> ' + errHtml + '</p> ');
+                            setTimeout(function () {
+                                $submit.attr('disabled', false).fadeTo('slow', 1);
+                                $('#error').slideUp();
+                            }, 5000)
+                        }, 2000);
+
+                        console.log(res.msg);
+                        getComment()
+
+                    } else {
+                        $('#loading').slideUp();
+                        let errHml = res.msg;
+                        errHml = errHml.replace(/WordPress &rsaquo; Error/i, "");
+                        $('#error').slideDown().html('<p style="color:red;"> ' + errHml + '</p> ');
+                        setTimeout(function () {
+                            $("#submit").attr('disabled', false).fadeTo('slow', 1);
+                            $('#error').slideUp();
+                        }, 5000);
+                    }
+                }
+            });
+            return false
+        });
+    });
+</script>
+<script>
+    //获取项目详情
+    $(function () {
+        $.get("/golang/getProjectDetail?id=" + getUrlParam('id'), function (data, status) {
+            console.log(status)
+            data = JSON.parse(data);
+            $(".note-title").text(data.Data.title)
+            $(".add-time").text(timestampToTime(data.Data.create_time))
+            $("#compose-intro>p").append(data.Data.desc)
+            $("#compose-repositories a").attr("href", data.Data.origin_url)
+            $("#compose-repositories a").text(data.Data.origin_url)
+        });
+
+
+    })
+
+    /**
+     * 赞
+     * @param id
+     */
+    function oo(id) {
+        let flag = sessionStorage.getItem('commentOo' + id);
+        console.log(flag);
+        if (flag !== 'true') {
+            $.ajax({
+                type: "POST",  //提交方式
+                url: "/Home/Index/oo_inc",//路径
+                data: {id: id},//数据，这里使用的是Json格式进行传输
+                success: function (res) {
+                    let ooSize = parseInt($("#oo" + id).next().text());
+                    $("#oo" + id).next().text(ooSize + 1);
+                    sessionStorage.setItem('commentOo' + id, 'true');
+                    console.log($('#oo' + id).next().text());
+                }
+            });
+        } else {
+            tip('已经点过了~')
+        }
+    }
+
+    /**
+     * 踩
+     * @param id
+     */
+    function xx(id) {
+        let flag = sessionStorage.getItem('commentXx' + id);
+        if (flag !== 'true') {
+            $.ajax({
+                type: "POST",  //提交方式
+                url: "/Home/Index/xx_dec",//路径
+                data: {id: id},//数据，这里使用的是Json格式进行传输
+                success: function (result) {
+                    let ooSize = parseInt($('#xx' + id).next().text());
+                    $('#xx' + id).next().text(ooSize + 1);
+                    sessionStorage.setItem('commentXx' + id, 'true');
+                    console.log($('#xx' + id).next().text());
+                }
+            });
+        } else {
+            tip('已经点过了~')
+        }
+    }
+
+    function reply(author) {
+        document.getElementById('mk-introduce').value= '@' + author  + ': ';
+        // $('input[name="to_user"]').val(fromUser);
+    }
+
+
+    function tip(msg) {
+        $('#urlAddTips strong').text(msg);
+        $('#urlAddTips').show();
+        setTimeout(function () {
+            $('#urlAddTips').hide();
+        }, 2000);
+    }
+
+    /**
+     * md预览
+     */
+    function convert() {
+        let text = document.getElementById("mk-introduce").value;
+        let converter = new showdown.Converter();
+        document.getElementById("result").getElementsByTagName('div')[0].innerHTML = converter.makeHtml(text);
+        let fun = $("#result img").each(function () {
+            $(this).attr('width', 200)
+        })
+        setTimeout(fun, 1000)
+        $("#result tr").each(function () {
+            $(this).css('border', "1px solid #f3f3f3");
+        })
+        $("#result th").each(function () {
+            $(this).css('background-color', "#e9ecef");
+            $(this).css('color', "#212529");
+            $(this).css('font-weight', "700");
+        })
+        $("#result table").each(function () {
+            $(this).css('border', "1px solid #f3f3f3");
+            $(this).css('min-width', "200px");
+            $(this).css('text-align', "center");
+        })
+        $("#result td").each(function () {
+            $(this).css('border', "1px solid #f3f3f3");
+        })
+    }
+
+</script>
+<script>
+    $(document).ready(function () {
+        getComment()
+        $('div.toolbar').attr('class', 'toolbar_back');
+        if (document.body.clientWidth > 768) {
+            $('pre').attr('style', 'box-sizing: border-box; overflow: auto;');
+        } else {
+            $('pre').attr('style', 'box-sizing:border-box;overflow:auto;font-size:14px;color:red;');
+        }
+
+
+        /**
+         * 图片宽度自适应
+         */
+        $("#content img").each(function () {
+            console.log($(this).width());
+            if ($(this).width() > $("#content").width()) {
+                let height = $(this).height() / $(this).width() * $('#content').width();
+                $(this).css('width', '100%');
+                $(this).css('height', height);
+            }
+        });
+        $('#commentForm #submit').attr('disabled', false);
+        $('#submit').after('<div id="loading"class="loading"></div><div id="error">#</div>');
+        $('#loading').hide();
+        $('#error').hide();
+
+        $('textarea').keypress(function (e) {
+            if (e.ctrlKey && e.which === 13 || e.which === 10) {
+                $(this).parent().submit()
+            }
+        });
+
+    });
+</script>
+
+{{template  "footer" .}}
+
+{{end}}
