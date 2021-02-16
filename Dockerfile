@@ -1,6 +1,6 @@
-FROM cent:v2
+FROM centos
 
-EXPOSE 8080
+EXPOSE 8083
 
 ADD golangschool /
 

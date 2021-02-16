@@ -1,7 +1,5 @@
 package models
 
-import "time"
-
 type Php41Ooxx struct {
 	Id          int       `json:"goods_id" xorm:"pk"`
 	TargetId    int       `json:"target_id"`
@@ -9,7 +7,7 @@ type Php41Ooxx struct {
 	Msg         string    `json:"msg" xorm:"varchar(255)"`
 	LikeCount   int       `json:"like_count"`
 	UnlikeCount int       `json:"unlike_count" `
-	AddTime     time.Time `json:"add_time" xorm:"<-"`
+	AddTime     int `json:"add_time" xorm:"created"`
 	FromUser    int       `json:"from_user"`
 	ToUser      int       `json:"to_user"`
 	ParentId    int       `json:"parent_id" xorm:"varchar(32)"`

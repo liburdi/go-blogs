@@ -1,8 +1,8 @@
 package config
 
 var MysqlUser = "root"
-var MysqlPassword = "root"
-var MysqlHost = "127.0.0.1"
+var MysqlPassword = "calvin.1."
+var MysqlHost = "39.108.104.253"
 var MysqlPort = "3306"
-var MysqlDbname = "demo"
+var MysqlDbname = "5iweb"
 var MysqlCharset = "utf8"

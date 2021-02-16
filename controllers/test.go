@@ -23,13 +23,13 @@ func Test(w http.ResponseWriter, r *http.Request) {
 func TestApi(w http.ResponseWriter, r *http.Request) {
 	users := make([]*models.Php41Users, 0)
 	err := MasterDB.Where("(user_id>?)", 0).Find(&users)
+	checkHttpErr(err,w)
 	api := initCommon.ApiRestful{
 		Code:    200,
 		Message: "Success",
 		Data:    users,
 	}
-	err = api.ApiRestful(w)
-	checkErr(err)
+	api.ApiRestful(w)
 }
 func TestAuth(w http.ResponseWriter, r *http.Request) {
 	ParentController(w, r)
@@ -57,7 +57,7 @@ func Note(w http.ResponseWriter, r *http.Request) {
 		Message: "Success",
 		Data:    data,
 	}
-	_ = api.ApiRestful(w)
+	api.ApiRestful(w)
 
 }
 func IsOnline(w http.ResponseWriter, r *http.Request) {
@@ -68,27 +68,35 @@ func IsOnline(w http.ResponseWriter, r *http.Request) {
 		Message: "Success",
 		Data:    data,
 	}
-	_ = api.ApiRestful(w)
+	api.ApiRestful(w)
 }
 
 func AuthorDynamic(w http.ResponseWriter, r *http.Request) {
 	userId := r.FormValue("id")
 	goods := make([]*models.Php41Goods, 0)
 	err := MasterDB.Where("(user_id=?)", userId).Limit(10).Find(&goods)
-	checkErr(err)
+	checkHttpErr(err,w)
 	api := initCommon.ApiRestful{
 		Code:    200,
 		Message: "Success",
 		Data:    goods,
 	}
-	err = api.ApiRestful(w)
-	checkErr(err)
+	api.ApiRestful(w)
 }
 
 func NiceComment(w http.ResponseWriter, r *http.Request) {
 	commentId := r.FormValue("id")
+	targetType := r.FormValue("targetType")
+	if targetType == ""  {
+		targetType = "1"
+	}
+	if len(commentId) > 10 {
+		commentId="26"
+		//initCommon.Error(3000,w)
+		//return
+	}
 	comments := make([]*models.Php41Ooxx, 0)
-	err := MasterDB.Where("(target_id=?)", commentId).Find(&comments)
+	err := MasterDB.Where("(target_id=? and target_type=?)", commentId,targetType).Find(&comments)
 	fmt.Println(err)
 	commentInfos := make([]models.CommentInfo, 10)
 	user := make([] *models.Php41Users, 0)
@@ -108,7 +116,7 @@ func NiceComment(w http.ResponseWriter, r *http.Request) {
 		Data:    commentInfos,
 	}
 
-	err = api.ApiRestful(w)
+	api.ApiRestful(w)
 
 }
 

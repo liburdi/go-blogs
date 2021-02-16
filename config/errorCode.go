@@ -1,5 +1,6 @@
 package config
 
+
 const (
 	Success=0 //正常返回码
 	ErrUserName     = 1000 // 用户名错误
@@ -9,6 +10,9 @@ const (
 
 	ErrSourceTimeLimit=2000//资源过期
 	ErrSourceNotFound=2001//资源不存在
+
+
+	ErrCreate=3000
 )
 var ErrorMessage =map[int]string{
 	Success : "请求正常。(200)",
@@ -18,8 +22,13 @@ var ErrorMessage =map[int]string{
 	ErrAuth:"授权失败。(1003)",
 	ErrSourceTimeLimit: "资源过期。(2000)",
 	ErrSourceNotFound: "资源不存在。(2001)",
+	ErrCreate: "创建失败。(3000)",
 }
 
 func GetErrorMessage(code int) string {
-	return ErrorMessage[code]
+	if vs := ErrorMessage[code]; len(vs) > 0 {
+		return vs
+	}
+	return ""
+
 }

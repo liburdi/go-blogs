@@ -19,7 +19,7 @@ type Php41Users struct {
 	Password  string `json:"password" xorm:"varchar(200)"`
 	TagList   string `json:"tag_list" xorm:"varchar(200)"`
 	HeadImg   string `json:"head_img" xorm:"varchar(200)"`
-	Position  string `json:"position" xorm:varchar(200)"`
+	Position  string `json:"position" xorm:"varchar(200)"`
 	Company   string `json:"company" xorm:"varchar(200)"`
 	SelfIntro string `json:"self_intro" xorm:"varchar(200)"`
 	Homepage  string `json:"homepage" xorm:"varchar(200)"`
@@ -28,7 +28,7 @@ type Php41Users struct {
 
 type UserInfoRedis struct {
 	UserId    int    `json:"user_id"`
-	UserName  string `json:"username"`
+	Username  string `json:"username"`
 	Tel       string `json:"tel"`
 	PassWord  string `json:"password"`
 	TagList   string `json:"tag_list"`
@@ -41,19 +41,24 @@ type UserInfoRedis struct {
 }
 
 func Auth(w http.ResponseWriter, r *http.Request) int {
-
+	if r==nil {
+		return  config.ErrAuth
+	}
 	cookiePointer, err := r.Cookie("token")
+	fmt.Println(cookiePointer)
 	if err != nil {
 		fmt.Println(err)
 		return config.ErrAuth
 	}
 	getValue, err := redis.Get(cookiePointer.Value)
+	fmt.Println("redis:")
+	fmt.Println(getValue)
 	err = json.Unmarshal([]byte(getValue), &BasicUserInfo)
 	if err != nil {
 		fmt.Println(err)
 		return config.ErrAuth
 	}
-	return 0
+	return 1
 }
 
 func Issue(w http.ResponseWriter, r *http.Request) int {

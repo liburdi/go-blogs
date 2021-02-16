@@ -36,7 +36,7 @@ func ReviewList(response http.ResponseWriter, request *http.Request) {
 		Message: "Success",
 		Data:    review,
 	}
-	_ = api.ApiRestful(response)
+	api.ApiRestful(response)
 }
 
 
@@ -67,7 +67,7 @@ func ModifyReview(response http.ResponseWriter, request *http.Request) {
 		Message: "Success",
 		Data:    review,
 	}
-	_ = api.ApiRestful(response)
+	api.ApiRestful(response)
 }
 
 /**
