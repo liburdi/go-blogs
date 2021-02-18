@@ -1,6 +1,8 @@
+
 ###  预览
 
 [golang之家](https://www.golangschool.com)
+
 
 ### 概览
 
@@ -60,6 +62,7 @@ go run main.go
 
 cd golangschool
 ./build.sh start
+
 
 ```
 别忘了根据golangschool.sql创建表结构，以及修改config对应的配置文件
