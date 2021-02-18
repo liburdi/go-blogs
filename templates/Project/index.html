@@ -1,0 +1,108 @@
+{{define "projectIndex"}}
+
+{{template "layout" .}}
+
+<div class="container projects">
+    <div class="row col-lg-9 col-md-12">
+    </div>
+    <div class="col-lg-3 col-md-0">
+        <section class="shadow section auth-section">
+            <div class="ticket">分享你的项目吧~</div>
+            <div class="input-group">
+                <div class="input-box"><input name="title"  minlength="1" maxlength="20" placeholder="项目名称" class="input"></div>
+                <div class="input-box"><input id="inputPhoneNum" name="desc" minlength="1" maxlength="200" placeholder="项目简介"
+                                              class="input"></div>
+                <div class="input-box"><input name="origin_url" type="text" minlength="6" maxlength="200"
+                                              placeholder="项目地址" class="input">
+                </div>
+            </div>
+            <button class="btn submit-btn" id="push" onclick="pushProject()">发布项目</button>
+        </section>
+    </div>
+
+</div>
+<style>
+    body {
+        background-color: #f4f4f5;
+    }
+</style>
+
+<script>
+    $(function () {
+        $.get("/golang/projectList", function (data, status) {
+            console.log(status)
+            data = JSON.parse(data);
+            $.each(data.Data, function (idx, obj) {
+                $('.row').prepend(
+                    '<div class="col-sm-12 col-md-12 col-lg-12"> \n' +
+                    '<div class="thumbnail"> \n' +
+                    '<div class="caption"> \n ' +
+                    '<h3>' + obj.title + '</h3> \n' +
+                    '<p>' + obj.desc + '</p> \n' +
+                    '<p style="text-align: right"><a style="color: #fff;" href= "./projectDetail?id='+obj.id+'" target="_blank" class="btn-sm btn-info" role="button">讨论</a>&nbsp;<a style="color: #fff;" href="' + obj.origin_url + '" target="_blank" class="btn-sm btn-info" role="button">详情</a></p> \n' +
+
+                    '</div> \n' +
+                    '</div> \n' +
+                    '</div> \n'
+                );
+            });
+        });
+
+
+    });
+
+    function pushProject() {
+        $('#push').after('<div id="loading"class="loading"></div><div id="error">#</div>');
+        $('#error').hide();
+        $('#loading').slideDown();
+        $.ajax({
+            url: '/golang/createProject',
+            data: {
+                'title': $('input[name="title"]').val(),
+                'desc': $('input[name="desc"]').val(),
+                'origin_url': $('input[name="origin_url"]').val(),
+            },
+            type: 'POST',
+            error: function (request) {
+                request = JSON.parse(request);
+                $('#loading').slideUp();
+                let errorHtml = request.responseText;
+                errorHtml = errorHtml.replace(/WordPress &rsaquo; Error/i, "");
+                $('#error').slideDown().html('<p style="color:red;"> ' + errorHtml + '</p> ');
+                setTimeout(function () {
+                    $('#error').slideUp();
+                }, 5000);
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                $('#loading').slideUp();
+                if(res.Code !== 200){
+                    $('#error').slideDown().html('<p style="color:red;"> ' + res.Message + '</p> ');
+                }else{
+                    $('#error').slideDown().html('<p style="color:green;">  发布成功 </p> ');
+                    $('.row').append(
+                        '<div class="col-sm-12 col-md-12 col-lg-12"> \n' +
+                        '<div class="thumbnail"> \n' +
+                        '<div class="caption"> \n ' +
+                        '<h3>' +$('input[name="title"]').val() + '</h3> \n' +
+                        '<p>' + $('input[name="desc"]').val() + '</p> \n' +
+                        '<p style="text-align: right"><a style="color: #fff;" href="' + $('input[name="origin_url"]').val() + '" target="_blank" class="btn btn-primary" role="button">详情</a></p> \n' +
+                        '</div> \n' +
+                        '</div> \n' +
+                        '</div> \n'
+                    );
+                }
+
+                setTimeout(function () {
+                    $('#error').slideUp();
+
+                }, 2000);
+            }
+        });
+    }
+
+</script>
+
+{{template "footer" .}}
+{{end}}
+

@@ -13,15 +13,15 @@ import (
 var (
 	Conn          redis.Conn
 	Pool          *redis.Pool
-	redisServer   = flag.String("redisServer", "127.0.0.1:6379", "")
-	redisPassword = flag.String("redisPassword", "root", "")
+	redisServer   = flag.String("redisServer", "39.108.104.253:6379", "")
+	redisPassword = flag.String("redisPassword", "Xmjy2018", "")
 )
 
 //初始化一个pool
 func newPool(server, password string) *redis.Pool {
 	return &redis.Pool{
 		MaxIdle:     3,
-		MaxActive:   5,
+		MaxActive:   3,
 		IdleTimeout: 240 * time.Second,
 		Dial: func() (redis.Conn, error) {
 			c, err := redis.Dial("tcp", server)
@@ -48,6 +48,7 @@ func init() {
 	flag.Parse()
 	Pool = newPool(*redisServer, *redisPassword)
 	Conn = Pool.Get()
+
 }
 func Set(key, vaule string) interface{} {
 	//	defer Conn.Close()
@@ -60,6 +61,7 @@ func Set(key, vaule string) interface{} {
 	return v
 }
 func Get(key string) (string, error) {
+	defer Conn.Close()
 	v, err := redis.String(Conn.Do("GET", key))
 	if err != nil {
 		fmt.Println(err)

@@ -1,8 +1,8 @@
-### 前言
 
-2018年接触golang后，非常喜欢此语言的特性和风格。
+###  预览
 
-遂搭建[golang中文社区](https://www.golangschool.com)，为了记录自己的学习的点点滴滴，也为了和更多人一起交流学习。
+[golang之家](https://www.golangschool.com)
+
 
 ### 概览
 
@@ -61,7 +61,8 @@ go run main.go
 #docker
 
 cd golangschool
-./build.sh
+./build.sh start
+
 
 ```
 别忘了根据golangschool.sql创建表结构，以及修改config对应的配置文件

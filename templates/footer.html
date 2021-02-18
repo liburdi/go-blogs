@@ -1,0 +1,118 @@
+
+{{define "footer"}}
+
+<div class="bottom-inverse">
+    <div class="container">
+        <div class="inner-bottom">
+            <div class="mh10">
+            </div>
+            <strong>
+                <a href="#">关于</a>&nbsp;<span class="snow">.</span>&nbsp;
+                <a href="#">FAQ</a>&nbsp;<span class="snow">.</span>&nbsp;
+                <a href="#">我们的愿景</a>&nbsp;<span class="snow">.</span>&nbsp;
+                <a href="#">广告投放</a>&nbsp;<span class="snow">.</span>&nbsp;
+                <a href="#">鸣谢</a>&nbsp;<span class="snow">.</span>&nbsp;
+            </strong>
+            <div class="mh15">
+            </div>
+            一个帮助Golang开发者成长的社区
+            <div class="mh5">
+            </div>
+            offers a new,not just cheap, way to have fun.
+            <div class="mh5">
+            </div>
+            <span class="small ccc">VERSION: V3.5.3 · 17.908926ms · 为了更好的体验，本站推荐使用 Chrome 或 Firefox 浏览器<br>
+			♥ Only great sorrow or great joy can reveal your truth.</span>
+            <div class="copyright">
+                <a href="http://www.miibeian.gov.cn/" target="_black">
+                    Copyright © golangschool.com All right reserved.琼ICP备17002445号-2
+                </a>
+                <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+                document.write(unescape("%3Cspan id='cnzz_stat_icon_1277995184'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1277995184%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="return-top">
+    <a href="#">▲</a>
+</div>
+<div style="display:none;" class="pin-modal">
+    <div class="pin-modal-box"></div>
+    <div class="main-box">
+        <div class="pin-editor-dialog pin__editor">
+            <div class="header editer-header">
+                <div class="title">分享链接</div>
+                <span class="close" onclick="pinmodalClose()">X</span>
+            </div>
+            <div class="editor-body">
+                <div class="content">
+                    <div class="editor-content editor">
+                        <div class="rich-editor">
+                            <textarea rows="10" tabindex="4"></textarea>
+                        </div>
+                        <span class="word-counter">1000</span>
+                    </div>
+                </div>
+            </div>
+            <div class="pin-bottom">
+                <span>自动抓取</span>
+                <button onclick="urlSum()" class="btn btn-success">发布</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="alert alert-success" style="position:fixed;top:20%;left:45%;display: none;" id="urlAddTips">
+    <strong>提示！</strong>
+</div>
+<style>
+    #return-top {
+        position: fixed;
+        bottom: 10%;
+        right: 50px;
+        width: 40px;
+        font-size: 22px;
+        text-align: center;
+        display: none;
+        background-color: #EEE;
+        border-radius: 20px;
+    }
+
+    #return-top a {
+        text-decoration: none;
+    }
+</style>
+<script>
+    function loadStatus(tag) {
+        sessionStorage.setItem("loadStatus", tag);
+        let status = sessionStorage.getItem("loadStatus");
+        console.log(status);
+    }
+
+    $(function () {
+
+        $('#return-top').hide();
+        $('#return-top').hover(function () {
+            $(this).css({"background-color": "#333", "color": "#fff"});
+        }, function () {
+            $(this).css({"background-color": "#eee", "color": "#333"});
+        });
+        $(function () {
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > 300) {
+                    $('#return-top').fadeIn(300);
+                } else {
+                    $('#return-top').fadeOut(200);
+                }
+            });
+            $('#return-top').click(function () {
+                $('body,html').animate({scrollTop: 0}, 300);
+                return false;
+            })
+        })
+    })
+</script>
+</body>
+</html>
+
+{{end}}
