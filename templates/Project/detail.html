@@ -69,7 +69,7 @@
                               placeholder=""
                               onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
 
-                        {{if .config.User.UserId}}
+                        {{if .config.User}}
                         <div style="display: flex;flex-direction: column;justify-content: center;align-items: flex-start; ">
                             <label class="label-input">
                                 <input name="submit" id="submit" type="submit" tabindex="5"

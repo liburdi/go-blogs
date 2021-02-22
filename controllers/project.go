@@ -115,12 +115,12 @@ func PushProjectComment(w http.ResponseWriter, r *http.Request) {
 
 func ProjectDetailDisPlay(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles("templates/layout.html", "templates/footer.html", "templates/Project/detail.html"))
-	daysOfWeek := map[string]interface{}{"pageTitle": "a", "config": TemplateConfig}
+	daysOfWeek := map[string]interface{}{"pageTitle": "开源项目 - Golang之家 - Golang中文社区", "config": TemplateConfig}
 	checkHttpErr(t.ExecuteTemplate(w, "projectDetail", daysOfWeek), w)
 }
 
 func ProjectIndexDisPlay(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles("templates/layout.html", "templates/footer.html", "templates/Project/index.html"))
-	daysOfWeek := map[string]interface{}{"pageTitle": "a", "config": TemplateConfig}
+	daysOfWeek := map[string]interface{}{"pageTitle": "开源项目 - Golang之家 - Golang中文社区", "config": TemplateConfig}
 	checkHttpErr(t.ExecuteTemplate(w, "projectIndex", daysOfWeek), w)
 }
