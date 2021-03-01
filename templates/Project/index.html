@@ -80,17 +80,7 @@
                     $('#error').slideDown().html('<p style="color:red;"> ' + res.Message + '</p> ');
                 }else{
                     $('#error').slideDown().html('<p style="color:green;">  发布成功 </p> ');
-                    $('.row').append(
-                        '<div class="col-sm-12 col-md-12 col-lg-12"> \n' +
-                        '<div class="thumbnail"> \n' +
-                        '<div class="caption"> \n ' +
-                        '<h3>' +$('input[name="title"]').val() + '</h3> \n' +
-                        '<p>' + $('input[name="desc"]').val() + '</p> \n' +
-                        '<p style="text-align: right"><a style="color: #fff;" href="' + $('input[name="origin_url"]').val() + '" target="_blank" class="btn btn-primary" role="button">详情</a></p> \n' +
-                        '</div> \n' +
-                        '</div> \n' +
-                        '</div> \n'
-                    );
+                    location.href='/golang/projectIndex'
                 }
 
                 setTimeout(function () {
