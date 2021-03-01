@@ -208,7 +208,7 @@
                 error: function (request) {
                     console.log(request)
                     if (request.status === 401) {
-                        location.href = '/Home/Index/Login'
+                        location.href = '/Home/Index/login'
                         return
                     } else {
                         $('#loading').slideUp();
