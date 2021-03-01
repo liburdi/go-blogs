@@ -93,8 +93,7 @@ func ProjectDetail(w http.ResponseWriter, r *http.Request) {
 
 func PushProjectComment(w http.ResponseWriter, r *http.Request) {
 	comment := new(models.Php41Ooxx)
-	//comment.TargetId, _ = strconv.Atoi(r.FormValue("project_id"))
-	comment.TargetId=26
+	comment.TargetId, _ = strconv.Atoi(r.FormValue("project_id"))
 	comment.Msg = r.FormValue("msg")
 	comment.ToUser, _ = strconv.Atoi(r.FormValue("to_user"))
 	comment.TargetType = 2
