@@ -46,8 +46,7 @@ func newPool(server, password string) *redis.Pool {
 func init() {
 	flag.Parse()
 	Pool = newPool(*redisServer, *redisPassword)
-
-
+	Conn = Pool.Get()
 	if Conn.Err()!=nil{
 		Conn = Pool.Get()
 	}

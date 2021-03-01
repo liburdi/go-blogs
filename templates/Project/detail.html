@@ -36,7 +36,7 @@
             <b>版权声明：</b>
             本站刊载的所有内容，文字、图片等资源均源于网上搜集或者由用户投稿，仅供学习和研究使用，无任何商业目的，其版权归原作者所有，对可以提供充分证据的侵权信息，本站将在确认后12小时内删除。
         </div>
-        <div>
+        <div id="comment-area">
             <div style="clear:both;">
             </div>
             <h3 class="title" id="comments">TOTAL COMMENTS: <span class="plus-one">
@@ -258,6 +258,7 @@
     //获取项目详情
     $(function () {
         $.get("/golang/getProjectDetail?id=" + getUrlParam('id'), function (data, status) {
+            $("#comment-area").hide()
             console.log(status)
             data = JSON.parse(data);
             $(".note-title").text(data.Data.title)
