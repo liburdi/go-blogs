@@ -3,7 +3,6 @@ package redis
 import (
 	"flag"
 	"fmt"
-	"golangschool/common/tools"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
@@ -22,14 +21,14 @@ func newPool(server, password string) *redis.Pool {
 	return &redis.Pool{
 		MaxIdle:     3,
 		MaxActive:   3,
-		IdleTimeout: 240 * time.Second,
+		IdleTimeout: 60 * time.Second,
 		Dial: func() (redis.Conn, error) {
 			c, err := redis.Dial("tcp", server)
 			if err != nil {
 				return nil, err
 			}
 			if _, err := c.Do("AUTH", password); err != nil {
-				defer tools.CheckErr(c.Close())
+				defer c.Close()
 				return nil, err
 			}
 			return c, err
@@ -47,7 +46,11 @@ func newPool(server, password string) *redis.Pool {
 func init() {
 	flag.Parse()
 	Pool = newPool(*redisServer, *redisPassword)
-	Conn = Pool.Get()
+
+
+	if Conn.Err()!=nil{
+		Conn = Pool.Get()
+	}
 
 }
 func Set(key, vaule string) interface{} {
