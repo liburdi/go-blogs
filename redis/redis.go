@@ -20,7 +20,6 @@ var (
 func newPool(server, password string) *redis.Pool {
 	return &redis.Pool{
 		MaxIdle:     3,
-		MaxActive:   3,
 		IdleTimeout: 60 * time.Second,
 		Dial: func() (redis.Conn, error) {
 			c, err := redis.Dial("tcp", server)
@@ -46,16 +45,12 @@ func newPool(server, password string) *redis.Pool {
 func init() {
 	flag.Parse()
 	Pool = newPool(*redisServer, *redisPassword)
-	Conn = Pool.Get()
-	if Conn.Err()!=nil{
-		Conn = Pool.Get()
-	}
-
 }
-func Set(key, vaule string) interface{} {
-	//	defer Conn.Close()
+func Set(key, value string) interface{} {
+	Conn = Pool.Get()
+	defer Conn.Close()
 	//redis操作
-	v, err := Conn.Do("SET", key, vaule)
+	v, err := Conn.Do("SET", key, value)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -63,6 +58,7 @@ func Set(key, vaule string) interface{} {
 	return v
 }
 func Get(key string) (string, error) {
+	Conn = Pool.Get()
 	defer Conn.Close()
 	v, err := redis.String(Conn.Do("GET", key))
 	if err != nil {
