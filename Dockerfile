@@ -12,4 +12,8 @@ RUN mkdir -p /uploads
 
 ADD uploads /uploads
 
+RUN mkdir -p /templates
+
+ADD templates /templates
+
 CMD [ "./golangschool"]
