@@ -1,7 +1,7 @@
 
 ###  预览
 
-[golang之家](https://www.golangschool.com)
+[原golangschool.com，已下线](https://www.golangschool.com)
 
 
 ### 概览
@@ -48,8 +48,6 @@ require (
 10.uploads 上传文件目录
 
 
-### 下载
-git clone https://github.com/KenRitchie/golangschool.git
 
 ### 启动
 
