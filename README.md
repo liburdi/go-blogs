@@ -1,9 +1,3 @@
-
-###  预览
-
-[原golangschool.com，已下线](https://www.golangschool.com)
-
-
 ### 概览
 
 - go version 
