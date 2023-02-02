@@ -1,15 +1,16 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Upload</title>
+    <meta charset="utf-8">
+    <title>Upload</title>
 </head>
 <body>
- <ol>
-	{{range $.images}}
-	<li><a href="/view?id={{.|urlquery}}">{{.|html}}</a></li>
-	{{end}}
+<ol>
+    {{range $.images}}
+    <li><a href="/view?id={{.|urlquery}}">{{.|html}}</a></li>
+    {{end}}
 </ol>
 <div style="float:right;"><a href="/upload">上传</a></div>
+<div style="float:right;"><a href="/">列表</a></div>
 </body>
 </html>

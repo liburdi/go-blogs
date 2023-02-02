@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"golangschool/config"
 	"fmt"
+	"github.com/liburdi/go-blogs/config"
 	"html/template"
 	"net/http"
 )
@@ -21,5 +21,4 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		v := r.FormValue("username")
 		fmt.Println(v)
 	}
-
 }

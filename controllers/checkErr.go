@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"golangschool/common/tools"
+	"github.com/liburdi/go-blogs/common/tools"
 	"net/http"
 	"time"
 )
@@ -17,7 +17,6 @@ func checkErr(errMsg error) {
 		return
 	}
 }
-
 
 /**
  * 私有HTTP-ERROR处理

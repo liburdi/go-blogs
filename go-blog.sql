@@ -18,10 +18,10 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for php41_auth
+-- Table structure for blog_auth
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_auth`;
-CREATE TABLE `php41_auth` (
+DROP TABLE IF EXISTS `blog_auth`;
+CREATE TABLE `blog_auth` (
   `auth_id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   `auth_name` varchar(20) NOT NULL COMMENT '名称',
   `auth_pid` smallint(6) unsigned NOT NULL COMMENT '父id',
@@ -33,10 +33,10 @@ CREATE TABLE `php41_auth` (
 ) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_duanzi
+-- Table structure for blog_duanzi
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_duanzi`;
-CREATE TABLE `php41_duanzi` (
+DROP TABLE IF EXISTS `blog_duanzi`;
+CREATE TABLE `blog_duanzi` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `add_time` int(11) unsigned NOT NULL DEFAULT '0',
   `comment` text,
@@ -48,10 +48,10 @@ CREATE TABLE `php41_duanzi` (
 ) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_goods
+-- Table structure for blog_goods
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_goods`;
-CREATE TABLE `php41_goods` (
+DROP TABLE IF EXISTS `blog_goods`;
+CREATE TABLE `blog_goods` (
   `goods_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `goods_name` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '名称',
   `goods_number` smallint(6) NOT NULL DEFAULT '1' COMMENT '浏览数',
@@ -79,20 +79,20 @@ CREATE TABLE `php41_goods` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4124 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Table structure for php41_goods_introduce
+-- Table structure for blog_goods_introduce
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_goods_introduce`;
-CREATE TABLE `php41_goods_introduce` (
+DROP TABLE IF EXISTS `blog_goods_introduce`;
+CREATE TABLE `blog_goods_introduce` (
   `goods_id` int(10) DEFAULT NULL,
   `goods_introduce` mediumtext,
   KEY `goods_id` (`goods_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Table structure for php41_goods_pics
+-- Table structure for blog_goods_pics
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_goods_pics`;
-CREATE TABLE `php41_goods_pics` (
+DROP TABLE IF EXISTS `blog_goods_pics`;
+CREATE TABLE `blog_goods_pics` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `goods_id` int(10) unsigned NOT NULL COMMENT '商品',
   `pics_big` char(100) NOT NULL DEFAULT '' COMMENT '相册原图',
@@ -101,10 +101,10 @@ CREATE TABLE `php41_goods_pics` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商品相册表';
 
 -- ----------------------------
--- Table structure for php41_manager
+-- Table structure for blog_manager
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_manager`;
-CREATE TABLE `php41_manager` (
+DROP TABLE IF EXISTS `blog_manager`;
+CREATE TABLE `blog_manager` (
   `mg_id` int(11) NOT NULL AUTO_INCREMENT,
   `mg_name` varchar(32) NOT NULL,
   `mg_pwd` varchar(32) NOT NULL,
@@ -115,10 +115,10 @@ CREATE TABLE `php41_manager` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_ooxx
+-- Table structure for blog_ooxx
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_ooxx`;
-CREATE TABLE `php41_ooxx` (
+DROP TABLE IF EXISTS `blog_ooxx`;
+CREATE TABLE `blog_ooxx` (
   `id` mediumint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `target_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父id',
   `target_type` tinyint(4) DEFAULT '1' COMMENT '1:note',
@@ -133,10 +133,10 @@ CREATE TABLE `php41_ooxx` (
 ) ENGINE=InnoDB AUTO_INCREMENT=342 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Table structure for php41_phonecode
+-- Table structure for blog_phonecode
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_phone_code`;
-CREATE TABLE `php41_phone_code` (
+DROP TABLE IF EXISTS `blog_phone_code`;
+CREATE TABLE `blog_phone_code` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `phone_num` varchar(11) NOT NULL DEFAULT '',
   `code` int(4) unsigned NOT NULL DEFAULT '0',
@@ -145,10 +145,10 @@ CREATE TABLE `php41_phone_code` (
 ) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_pic
+-- Table structure for blog_pic
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_pic`;
-CREATE TABLE `php41_pic` (
+DROP TABLE IF EXISTS `blog_pic`;
+CREATE TABLE `blog_pic` (
   `id` mediumint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `author` varchar(225) NOT NULL DEFAULT 'Dee' COMMENT '用户名',
   `url` longtext COMMENT 'url',
@@ -163,10 +163,10 @@ CREATE TABLE `php41_pic` (
 ) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_project
+-- Table structure for blog_project
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_project`;
-CREATE TABLE `php41_project` (
+DROP TABLE IF EXISTS `blog_project`;
+CREATE TABLE `blog_project` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(100) NOT NULL DEFAULT '' COMMENT '名称',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
@@ -179,10 +179,10 @@ CREATE TABLE `php41_project` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_reply
+-- Table structure for blog_reply
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_reply`;
-CREATE TABLE `php41_reply` (
+DROP TABLE IF EXISTS `blog_reply`;
+CREATE TABLE `blog_reply` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ooxx_id` int(10) unsigned NOT NULL DEFAULT '0',
   `uid` int(10) unsigned NOT NULL DEFAULT '0',
@@ -192,10 +192,10 @@ CREATE TABLE `php41_reply` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_role
+-- Table structure for blog_role
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_role`;
-CREATE TABLE `php41_role` (
+DROP TABLE IF EXISTS `blog_role`;
+CREATE TABLE `blog_role` (
   `role_id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   `role_name` varchar(20) NOT NULL COMMENT '角色名称',
   `role_auth_ids` varchar(128) NOT NULL DEFAULT '' COMMENT '权限ids,1,2,5',
@@ -204,10 +204,10 @@ CREATE TABLE `php41_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_tabs
+-- Table structure for blog_tabs
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_tabs`;
-CREATE TABLE `php41_tabs` (
+DROP TABLE IF EXISTS `blog_tabs`;
+CREATE TABLE `blog_tabs` (
   `id` mediumint(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `parent_id` int(2) unsigned NOT NULL DEFAULT '0',
   `cate` varchar(32) NOT NULL COMMENT '用户名',
@@ -216,20 +216,20 @@ CREATE TABLE `php41_tabs` (
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_type
+-- Table structure for blog_type
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_type`;
-CREATE TABLE `php41_type` (
+DROP TABLE IF EXISTS `blog_type`;
+CREATE TABLE `blog_type` (
   `type_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `type_name` varchar(32) NOT NULL COMMENT '类型名称',
   PRIMARY KEY (`type_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='商品类型表';
 
 -- ----------------------------
--- Table structure for php41_url
+-- Table structure for blog_url
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_url`;
-CREATE TABLE `php41_url` (
+DROP TABLE IF EXISTS `blog_url`;
+CREATE TABLE `blog_url` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `url` varchar(100) NOT NULL DEFAULT '' COMMENT 'url',
   `title` varchar(100) NOT NULL DEFAULT '' COMMENT '标题',
@@ -240,10 +240,10 @@ CREATE TABLE `php41_url` (
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for php41_users
+-- Table structure for blog_users
 -- ----------------------------
-DROP TABLE IF EXISTS `php41_users`;
-CREATE TABLE `php41_users` (
+DROP TABLE IF EXISTS `blog_users`;
+CREATE TABLE `blog_users` (
   `user_id` int(12) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(32) NOT NULL DEFAULT '' COMMENT '昵称',
   `tel` varchar(20) NOT NULL DEFAULT '',

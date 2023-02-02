@@ -8,15 +8,15 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
-//声明一些全局变量
+// 声明一些全局变量
 var (
 	Conn          redis.Conn
 	Pool          *redis.Pool
 	redisServer   = flag.String("redisServer", "127.0.0.1:6379", "")
-	redisPassword = flag.String("redisPassword", "Xmjy2018", "")
+	redisPassword = flag.String("redisPassword", "liburdi/go-blogs", "")
 )
 
-//初始化一个pool
+// 初始化一个pool
 func newPool(server, password string) *redis.Pool {
 	return &redis.Pool{
 		MaxIdle:     3,

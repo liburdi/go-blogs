@@ -1,0 +1,23 @@
+version: "3.1"
+services:
+  redis:
+    image: redis:5
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - 6379:6379
+    command: [ "redis-server","/etc/redis/redis.conf" ]
+    restart: always
+    volumes:
+      - ./redis:/etc/redis/
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=go-blogs
+      - MYSQL_ROOT_USER=root
+      - MYSQL_PASSWORD=root
+      - TZ=Asia/Shanghai
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci

@@ -46,18 +46,9 @@ require (
 ### 启动
 
 ```
-#默认
-cd golangschool
-go run main.go
+make run
 
-#docker
-
-cd golangschool
-./build.sh start
-
-
-```
-别忘了根据golangschool.sql创建表结构，以及修改config对应的配置文件
+``
 
 
 

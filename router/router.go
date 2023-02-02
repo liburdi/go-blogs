@@ -1,9 +1,8 @@
 package router
 
 import (
-	"fmt"
-	"golangschool/controllers"
-	"golangschool/models"
+	"github.com/liburdi/go-blogs/controllers"
+	"github.com/liburdi/go-blogs/models"
 	"net/http"
 )
 
@@ -24,76 +23,7 @@ var Maps = []*Map{
 
 	{
 		Method: "Get",
-		Path: "/test/",
-		Fn:   controllers.Test,
-	},
-	{
-		Method: "Get",
-		Path: "/testApi/",
-		Fn:   controllers.TestApi,
-	},
-	{
-		Method: "Get",
-		Path: "/testAuth/",
-		Fn:   controllers.TestAuth,
-	},
-	{
-		Method: "Get",
-		Path: "/note",
-		Fn:   controllers.Note,
-	},
-	{
-		Method: "Get",
-		Path: "/isOnline",
-		Fn:   controllers.IsOnline,
-	},
-	{
-		Method: "Get",
-		Path: "/authorDynamic",
-		Fn:   controllers.AuthorDynamic,
-	},
-	{
-		Method: "Get",
-		Path:   "/niceComment",
-		Fn:     controllers.NiceComment,
-	},
-	{
-		Method: "Get",
-		Path:   "/projectList",
-		Fn:     controllers.ProjectList,
-	},
-	{
-		Method: "Post",
-		Path:   "/createProject",
-		Fn:     controllers.CreateProject,
-	},
-	{
-		Method: "Get",
-		Path:   "/getProjectDetail",
-		Fn:     controllers.ProjectDetail,
-	},
-	{
-		Method: "Post",
-		Path:   "/pushProjectComment",
-		Fn:     controllers.PushProjectComment,
-	},
-	{
-		Method: "Get",
-		Path:   "/projectDetail",
-		Fn:     controllers.ProjectDetailDisPlay,
-	},
-	{
-		Method: "Get",
-		Path:   "/projectIndex",
-		Fn:     controllers.ProjectIndexDisPlay,
-	},
-	{
-		Path: "/login/",
-		Fn:   controllers.Login,
-	},
-	{
-		Method: "Get",
-		Path:   "/list",
+		Path:   "/",
 		Fn:     controllers.ListHandler,
 	},
 	{
@@ -108,13 +38,8 @@ var Maps = []*Map{
 	},
 	{
 		Method: "Get",
-		Path:   "/reviewList",
-		Fn:     controllers.ReviewList,
-	},
-	{
-		Method: "Post",
-		Path:   "/modifyReview",
-		Fn:     controllers.ModifyReview,
+		Path:   "/upload",
+		Fn:     controllers.UploadHandler,
 	},
 }
 
@@ -167,26 +92,18 @@ func (k *KenRouter) HandleFunc(method, pattern string, handle http.HandlerFunc) 
 
 func (k *KenRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	status := models.Auth(w, r)
-	fmt.Println(status)
 	//权限检验
-	if status == 1 {
+	if status == nil {
 		controllers.TemplateConfig["User"] = *models.BasicUserInfo
-		fmt.Println("TempLateConfig:")
-		fmt.Println(controllers.TemplateConfig)
 	} else {
 		for i := 0; i < len(AuthRouters); i++ {
 			if AuthRouters[i] == r.URL.Path {
-				fmt.Println("No Auth!!!")
-				http.Error(w, "No Auth!!!", http.StatusUnauthorized)
-				return
+				//TODO
 			}
 		}
 	}
-	fmt.Println(status)
-	fmt.Println(r.URL.String())
-	fmt.Println(r.URL.Path)
 	if f, ok := k.router[r.Method][r.URL.Path]; ok {
 		f.ServeHTTP(w, r)
-	} else {
 	}
+	return
 }
