@@ -2,7 +2,7 @@ package init
 
 import (
 	"encoding/json"
-	"golangschool/config"
+	"github.com/liburdi/go-blogs/config"
 	"net/http"
 )
 

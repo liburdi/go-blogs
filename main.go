@@ -1,7 +1,7 @@
 package main
 
 import (
-	"golangschool/router"
+	"github.com/liburdi/go-blogs/router"
 	"log"
 	"net/http"
 )

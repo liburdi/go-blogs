@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"golangschool/config"
+	"github.com/liburdi/go-blogs/config"
 	"html/template"
 	"io"
 	"io/ioutil"
@@ -10,15 +10,17 @@ import (
 	"os"
 )
 
-/**
- * 上传
- */
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r.Method)
 	if r.Method == "GET" {
 		t, err := template.ParseFiles(config.TemplateDir + "/UploadTest/upload.html")
-		checkErr(err)
+		if err != nil {
+			return
+		}
 		err = t.Execute(w, nil)
-		checkHttpErr(err, w)
+		if err != nil {
+			return
+		}
 	}
 
 	if r.Method == "POST" {
@@ -38,9 +40,6 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-/**
- * 浏览
- */
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	imageId := r.FormValue("id")
 	imagePath := config.UploadDir + "/" + imageId
@@ -49,20 +48,9 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, imagePath)
 }
 
-/**
- * 列表
- */
 func ListHandler(w http.ResponseWriter, r *http.Request) {
 	fileInfoArr, err := ioutil.ReadDir("./uploads")
 	checkHttpErr(err, w)
-	//方式一
-	//	var listHtml string
-	//	for _, fileInfo := range fileInfoArr {
-	//		imgid := fileInfo.Name()
-	//		listHtml += "<li><a href=\"/view?id=" + imgid + "\">imgid</a></li>"
-	//	}
-	//	io.WriteString(w, "<div>"+listHtml+"</div>")
-	//方式二
 	var locals = make(map[string]interface{})
 	var images = []string{}
 	for _, fileInfo := range fileInfoArr {

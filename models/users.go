@@ -1,18 +1,16 @@
 package models
 
 import (
-	"golangschool/common/tools"
-	"golangschool/config"
-	. "golangschool/db"
-	"golangschool/redis"
 	"encoding/json"
 	"fmt"
+	"github.com/liburdi/go-blogs/config"
+	"github.com/liburdi/go-blogs/redis"
 	"net/http"
 )
 
 var BasicUserInfo *UserInfoRedis
 
-type Php41Users struct {
+type Users struct {
 	UserId    int    `json:"user_id" xorm:"pk"`
 	Username  string `json:"username"`
 	Tel       string `json:"tel"`
@@ -40,43 +38,18 @@ type UserInfoRedis struct {
 	THeadImg  string `json:"t_head_img"`
 }
 
-func Auth(w http.ResponseWriter, r *http.Request) int {
-	if r==nil {
-		return  config.ErrAuth
+func Auth(w http.ResponseWriter, r *http.Request) error {
+	if r == nil {
+		return fmt.Errorf(config.ErrorMessage[config.ErrAuth])
 	}
 	cookiePointer, err := r.Cookie("token")
-	fmt.Println(cookiePointer)
 	if err != nil {
-		fmt.Println(err)
-		return config.ErrAuth
+		return fmt.Errorf(config.ErrorMessage[config.ErrAuth])
 	}
 	getValue, err := redis.Get(cookiePointer.Value)
-	fmt.Println("redis:")
-	fmt.Println(getValue)
 	err = json.Unmarshal([]byte(getValue), &BasicUserInfo)
 	if err != nil {
-		fmt.Println(err)
-		return config.ErrAuth
+		return fmt.Errorf(config.ErrorMessage[config.ErrAuth])
 	}
-	return 1
-}
-
-func Issue(w http.ResponseWriter, r *http.Request) int {
-	cookieValue := tools.GetRandomString(32)
-	users := make([]*Php41Users, 0)
-	err := MasterDB.Where("(user_id=?)", 30).Find(&users)
-	fmt.Println(err)
-	if err != nil {
-		return config.ErrSourceNotFound
-	}
-	redisValue, err := json.Marshal(users[0])
-	if res := redis.Set(cookieValue, string(redisValue)); res != "OK" {
-		fmt.Println(res)
-		return config.ErrSetRedisUserInfo
-	}
-
-	cookie := http.Cookie{Name: "token", Value: cookieValue, Path: "/", MaxAge: 86400}
-	fmt.Println(cookieValue)
-	http.SetCookie(w, &cookie)
-	return 0
+	return nil
 }

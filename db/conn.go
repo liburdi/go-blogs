@@ -6,8 +6,8 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
-	"golangschool/common/tools"
-	"golangschool/config"
+	"github.com/liburdi/go-blogs/common/tools"
+	"github.com/liburdi/go-blogs/config"
 )
 
 var MasterDB *xorm.Engine
@@ -48,7 +48,6 @@ func initEngine() error {
 
 	MasterDB.SetMaxIdleConns(maxIdle)
 	MasterDB.SetMaxOpenConns(maxConn)
-
 
 	MasterDB.ShowSQL(false)
 
